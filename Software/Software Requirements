@@ -1,3 +1,0 @@
-# Software Requirements
-- The pacman game shall output its game state via a socket communication to the GUI application and the Python Application
-- There shall be a bash script, which 
