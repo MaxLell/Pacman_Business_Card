@@ -1,4 +1,6 @@
-# User Experience
+# User Experience of the player
+This is about the user experience that the player has, when using the business card to play the game.
+
 ## Power Off - State
 - The display shows the contact information and a QR Code to my Home-Page
 
@@ -33,7 +35,8 @@
 - the display shall show the current time of the day and the current date (including contact information)
 - If the player presses the power button, then the game is launched
 
-## User wants to have the time to be displayed
+### User wants to have a functional device, which is not only paper weight
+- The user wants the time and date to be displayed (almost like a pocket watch)
 - The user powers on the device. 
 - In the menu the user can select: Display current time (including contact information)
 - The system shows the current system time
