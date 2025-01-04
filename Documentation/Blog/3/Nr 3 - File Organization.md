@@ -1,7 +1,7 @@
 # File Organization
 This is only a short section about file organization, and how I intend to keep my project organized. This answers where I will place all the outputs, that I am about to create.
 
-This is the folder structureI am going to use on my Github Repo
+This is the folder structure I am going to use on my Github Repository
 ```
 Pacman Business Card
 ├── Documentation
