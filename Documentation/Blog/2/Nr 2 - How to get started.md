@@ -1,5 +1,5 @@
-# How to get started?
-TLDR: If you were to eat an elephant, where would you start? This article gives an answer for a simple product.
+# 2 - How to get started?
+TLDR: How do you start to translate the idea of a Pacman-AI business-card into something real?
 
 (ADD IMAGE HERE)
 
