@@ -13,3 +13,4 @@
 - It shall be possible to charge the business card with USB-C (so the battery shall not be disposable)
 - When the card is connected to a permanent power supply then the system shall display the current time and date in an analog format. Furthermore my name is to be displayed there. (Potentially my QR Code every once in a while)
 - A fully charged business card shall last for a week. Tradeshows typically last between 3-5 days. Since you do not want to charge 20 Business cards every evening in the hotel, there needs to be a better way.
+- The business card shall not be activated by accident (so when the card is in a pocket)
