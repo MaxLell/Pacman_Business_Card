@@ -1,0 +1,1 @@
+The user will be notified when the card's battery is low, so that he knows to charge it

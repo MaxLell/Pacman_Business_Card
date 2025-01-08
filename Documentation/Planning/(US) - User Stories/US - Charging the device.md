@@ -1,0 +1,1 @@
+The user shall be able to recharge his device.

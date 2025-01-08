@@ -1,0 +1,3 @@
+- the owner hands of the business card
+- the client puts them in a bag (The system shall power itself off, after a timeout, so that the battery is not fully drained)
+- a couple of days later the client takes the business card out of his bag and restarts the business card. The business card shall still be functional then.

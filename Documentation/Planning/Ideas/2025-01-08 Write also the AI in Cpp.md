@@ -1,0 +1,3 @@
+- The advantage is that training times would be cut short when the training of the NEAT would also occur in Cpp, rather then running it in python.
+- By doing so, I could speed up training activities significantly, since Cpp is roughly 10 to 100 times faster then Python.
+- So we are talking: Instead of 100h of training, the same could be achieved in 1h of training. I think this is a no-brainer in this regard.

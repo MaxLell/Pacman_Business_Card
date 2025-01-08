@@ -1,0 +1,1 @@
+The player will be able to enable the AI on the card at any time during the game to witness it solving the game autonomously

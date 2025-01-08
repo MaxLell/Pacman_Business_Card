@@ -1,0 +1,1 @@
+- When the User uses AI to help him solve the game, then the high score receives a "`*`" character, which indicates the help of AI for this run

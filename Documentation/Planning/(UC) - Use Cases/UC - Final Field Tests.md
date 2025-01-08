@@ -1,0 +1,3 @@
+The user presses a specific combination of buttons (Power Button pressed, and control key down)
+The system performs a self test, where it runs through a bunch of internal tests to verify that it is fully operational. All sensors are working, all buttons are working and the battery is charged.
+This shall make sure that the owner only passes fully functioning business cards to the clients. These devices MUST work. Otherwise the "storefront" will be viewed as bad, which is the opposite as what I want to show.
