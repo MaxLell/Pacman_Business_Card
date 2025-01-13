@@ -1,0 +1,3 @@
+| Req ID | What do we want?                                                         | Criticality | Rationale | How to verify?                                        |
+| ------ | ------------------------------------------------------------------------ | ----------- | --------- | ----------------------------------------------------- |
+| 0c28   | Owner shall be knowledgeable when presenting the card about its features | Mandatory   |           | Elevator Pitch about the card is possible (2 minutes) |

@@ -1,1 +1,0 @@
-The developing engineer shall grow his skills by implementing this technical solution (which to be honest searches for a solution besides learning)

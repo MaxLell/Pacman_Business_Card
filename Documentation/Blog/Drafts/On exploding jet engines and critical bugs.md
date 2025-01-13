@@ -1,4 +1,4 @@
-# On exploding jet engines and critical bugs
+# 1 On exploding jet engines and critical bugs
 Back in the day my uncle worked in the testing department of a jet engine supplier and they sometimes ran tests where the ran the turbines up to the point of self-destruction and they took measurements during that process. These engines would sometimes explode during these tests and after the experiments they would fish the engine blades out of the test bunker walls. So keep this in mind when I tell you about one of the first full projects I was working on when I stumbled out of university.
 
 I was given the task of creating an entire embedded system from scratch. The system I had to build was a RC-Jet-Plane Engine Controller. 

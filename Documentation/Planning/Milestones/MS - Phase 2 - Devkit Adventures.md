@@ -1,0 +1,5 @@
+[[MS - Embedded GUI renders some basic Shapes and menus on the canvas - Dev Kit]]
+[[MS - AI and Pacman are ported to the DevKit and can be used on its screen]]
+[[MS - Power Consumption of the PacmanAI Setup (Buttons, Screen, Computing) can be estimated]]
+[[MS - Battery Charging, discharging and battery protection is working on a DevKit with the target battery]]
+[[MS - Pacman Music can be output on a DevKit]]
