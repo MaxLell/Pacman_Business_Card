@@ -9,7 +9,11 @@ Pacman Business Card
 ├── Documentation
 │   ├── Planning
 │   │   ├── Use Cases
+│   │   │   ├── UC - Index
+│   │   │   └── UC - ...
 │   │   ├── User Stories
+│   │   │   ├── US - Index
+│   │   │   └── UC - ...
 │   │   ├── Requirements
 │   │   ├── Diagrams
 │   │   ├── Ideas
@@ -18,6 +22,7 @@ Pacman Business Card
 │   │   ├── 1
 │   │   ├── 2
 │   │   └── ...
+│   ├── User Manual
 │   └── ...
 ├── Software
 │   ├── Source Code

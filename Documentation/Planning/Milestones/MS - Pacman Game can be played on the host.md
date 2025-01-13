@@ -20,3 +20,9 @@ What technologies / frameworks are to be used to also fulfill the learning requi
 - Rendering of the game in Python 
 - Sockets / Queues / Pipes für den Data Transfer (TBD)
 - Bash Script for launching the processes and setting up the communication between the scripts
+
+## 2.3 What are the Pacman Game Mechanics?
+
+## 2.4 Testing and Verification
+- I can play the game with a regular keyboard on my platform
+- Pacman can blink on the edges of the canvas.

@@ -1,6 +1,6 @@
 TLDR: Breaking it down from "insurmountable" to "big chunks" to "smaller digestible chunks".
 
-# 1 Breaking it down
+# 1 Breaking it further down
 Usually when I am done with the planning and evaluation of the project, I feel a bit overwhelmed. 
 
 "There is just so much stuff to be done", "How can I ever get this up and running, I will never finish this?". These are thoughts going through my head in such circumstances. 
