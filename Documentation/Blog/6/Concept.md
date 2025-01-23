@@ -13,14 +13,5 @@
 
 ---
 
-Wie soll ich jetzt weitermachen?
-- Bevor ich mit der eigentlichen Implementierung anfangen kann muss das build system stehen
-- Und das Spiel will verstanden sein und aufs wesentlichste kondensiert sein. 
-- Ich will mal ein wenig Abwechslung reinbringen. Vor Allem hinsichtlich Build System
-- Auch will ich endlich mal das Publishing vorran treiben.
+Der ShyunHymmel hat wenigstens eine gute Zusammenfassung, die auch mal [funktioniert](https://github.com/ShawnHymel/c-unit-test)
 
---- 
-Build System
-1. Kompilierung vom Hello world und einem externen Module mit CMake in der Ordner-Struktur, die ich mir anlegen will.
-2. Kompilieren mit CppUTest mit dem Hello World Project
-3. Integration von Beidem in VSCode
