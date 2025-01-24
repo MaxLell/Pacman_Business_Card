@@ -1,1 +1,0 @@
-I reused the following [Project](https://github.com/jmichaelsturm/cpputest-starter-project-cmake) for that sake
