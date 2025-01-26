@@ -2,7 +2,7 @@ So now that the organizational stuff is handled lets dive into building the [[MS
 
 So now I am at the point, where I do not know how Pacman is to be built. In order to do so, I need to understand the following points:
 
-1. What is the context of the game? So how is it interconnected into the Pacman AI Business Card 
+1. What is the context of the game? So how is it interconnected into the Pacman AI Business Card. What are its intefaces?
 2. How does the Pacman game actually work - what is the logic behind it? 
 	1. How is the game executed? - what is the sequence of steps?
 	2. What objects are there most likely and how can I organize them into groups?
@@ -22,9 +22,9 @@ If I understand it correctly, then Pacman is a game of agents.
 # 2 Context of the Pacman Game
 ![[Diag - Pacman AI Game Block Diagram]]
 
-The Game environment needs to be exposed to the outside world. Therefore this is to be taken into account. The "outside world" (Game AI) needs to be able to see the entire game environment, so that the autonomous Pacman Agent can learn properly.
+The Game environment needs to be exposed to the outside world. Therefore this is to be taken into account. The "outside world" (Game AI) needs to be able to see the entire game environment, so that the autonomous Pacman Agent can learn properly. The same is true for the UI. Its task is to render the environment (only parts) to a GUI, which the user can interact with.
 
-# 3 High Level Flow
+# 3 High Level Execution Flow
 I am using the concept of the game loop for that matter here. Furthermore I am using some Pseudocode instead of diagrams to show the steps that roughly happen after each other.
 ```
 Game {
@@ -54,7 +54,7 @@ Model View Control can be used for that matter. The way, how I like to use it is
 
 - Model -> this will be the object, that holds the game's data. I called it "the environment".
 - Control -> these will be the actions that the agents of the game are doing
-- View -> this groups the functionality that exposes the game to the outside world. That can be the rendering on a GUI or the Terminal. 
+- View -> this groups the functionality that exposes the game to the outside world. That can be the rendering on a GUI or the Terminal. But this is also the interface to which the AI has access to.
 
 I can now decompose this high level groups into classes:
 
