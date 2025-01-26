@@ -1,6 +1,6 @@
 These are the diagrams which are developed in order to better understand the task at hand. 
 
-# 1 [[MS - Phase 0 - Orientation|Phase 0]]
+# 1 [[MS - Phase 0 - Project scope planning|Phase 0]]
 [[Diag - Component System Block Diagram]]
 [[PC - GameRunner]]
 

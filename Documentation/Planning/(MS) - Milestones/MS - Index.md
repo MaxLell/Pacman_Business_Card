@@ -1,4 +1,4 @@
-[[MS - Phase 0 - Orientation]]
+[[MS - Phase 0 - Project scope planning]]
 
 [[MS - Phase 1 - A host beginning]]
 
