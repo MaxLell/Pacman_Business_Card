@@ -93,7 +93,4 @@ This group houses the game's logic. So that means the functions that act on the 
 - The **game** - this executes the game
 	- this holds the game loop that executes the game
 ## 4.4 View
-This is about rendering and exposing the game's data to the outside world
-- **GUI**
-	- Renders the game environment to a graphical user interface
-- **External Public Interface**: Exposes the environment to the outside world (Inputs and outputs)
+This is about rendering and exposing the game's data to the outside world. The exposed data can either be used by the AI or by the GUI for Rendering
