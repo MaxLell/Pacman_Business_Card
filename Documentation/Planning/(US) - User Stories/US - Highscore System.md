@@ -1,1 +1,0 @@
-The player will be able to record his high-score on the card

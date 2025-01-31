@@ -1,1 +1,0 @@
-The technical developer shall capture his thoughts in a blog, in order to improve the overall quality of the product

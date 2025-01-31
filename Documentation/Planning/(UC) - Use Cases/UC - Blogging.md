@@ -1,3 +1,0 @@
-- I want to record my thoughts and my process while creating the product
-- Furthermore this forces me to put myself out more
-- If I am not only writing for myself, I have a hightened sense of quality - theremore making the product much more better in the end of the day.w

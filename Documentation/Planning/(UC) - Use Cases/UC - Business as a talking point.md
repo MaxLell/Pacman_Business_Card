@@ -1,9 +1,0 @@
-- The business card shall be used as a talking point during interactions. It wires a story to my business card, therefore making the interaction with me more memorable. This leads to a story being wired to the card, and this story is also wired to me. So therefore I did create a strong warm lead by providing such a business card.
-- owner approaches a client with a question. The business card is blinking
-- client eventually asks what the badge is doing
-- owner removes the blinking business card from his sleeve and explains what the card is doing.
-- He then hands the card over to the client, who can now play pacman on the card. 
-- The game starts and after 5 Seconds of playing the Light below the AI Button starts to pulsate, indicating that the AI feature is present
-- The client asks what this does and presses the button.
-- the card shows on its display: "AI taking over" for one second
-- The Game is shown again and the AI is playing the game. The control buttons become inactive
