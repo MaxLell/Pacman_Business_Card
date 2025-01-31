@@ -1,1 +1,0 @@
-[[MS - Card is handed out on a Tradeshow - MakerFaire]]
