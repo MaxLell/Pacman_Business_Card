@@ -15,7 +15,8 @@ add_subdirectory(lib)
 
 # Compile the Pacman Game executable
 add_executable(${PACMAN_GAME} ${PACMAN_GAME_SRC})
-target_link_libraries(${PACMAN_GAME} PRIVATE ${PACMAN_GAME_LIB} {UI_LIB})
+# target_link_libraries(${PACMAN_GAME} PRIVATE ${PACMAN_GAME_LIB} {UI_LIB})
+target_link_libraries(${PACMAN_GAME} PRIVATE ${PACMAN_GAME_LIB})
 
 
 # For the tests
