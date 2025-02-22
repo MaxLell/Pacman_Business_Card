@@ -1,7 +1,9 @@
 #include "ui.h"
+#include <SFML/Graphics.hpp>
 
 UI::UI(/* args */)
 {
+
 }
 
 UI::~UI()
@@ -9,7 +11,12 @@ UI::~UI()
 }
 
 
-void UI::generateOutputs(const DataPool &data_pool)
+void UI::render(const Environment &env)
 {
+    
+}
 
+bool UI::terminated()
+{
+    return false;
 }

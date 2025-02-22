@@ -1,7 +1,7 @@
 #pragma once
 
 #include "types.h"
-#include "data_pool.h"
+#include "environment.h"
 
 class UI
 {
@@ -10,5 +10,6 @@ private:
 public:
     UI(/* args */);
     ~UI();
-    void generateOutputs(const DataPool &data_pool);
+    void render(const Environment &env);
+    bool terminated();
 };
