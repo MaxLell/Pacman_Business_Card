@@ -1,5 +1,5 @@
 #include "ui.h"
-#include <SFML/Graphics.hpp>
+// #include <SFML/Graphics.hpp>
 
 UI::UI(/* args */)
 {
@@ -16,7 +16,7 @@ void UI::render(const Environment &env)
     
 }
 
-bool UI::terminated()
+bool UI::isTerminated()
 {
     return false;
 }

@@ -1,6 +1,7 @@
-#include "ui.h"
+
 #include "pacman_game_logic.h"
 #include "environment.h"
+#include "ui.h"
 
 int main()
 {
@@ -12,7 +13,7 @@ int main()
     Environment env;
 
     // while (game != game_over && ui.window_not_closed)
-    while ((gameLogic.isGameOver() == false) && (ui.terminated() == false))
+    while ((gameLogic.isGameOver() == false) && (ui.isTerminated() == false))
     {
         // inputs = ui.getInputs()
         input = Input::NoInput;

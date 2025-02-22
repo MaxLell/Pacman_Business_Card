@@ -11,5 +11,5 @@ public:
     UI(/* args */);
     ~UI();
     void render(const Environment &env);
-    bool terminated();
+    bool isTerminated();
 };
