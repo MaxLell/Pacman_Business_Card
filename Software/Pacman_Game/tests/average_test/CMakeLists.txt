@@ -10,4 +10,4 @@ set(TEST_SOURCES
 
 # Add the test executable which is only concerned with the current test
 add_executable(run_${TEST_NAME} ${TEST_SOURCES})
-target_link_libraries(run_${TEST_NAME} PRIVATE CppUTest CppUTestExt ${APP_LIB_NAME})
+target_link_libraries(run_${TEST_NAME} PRIVATE CppUTest CppUTestExt ${PACMAN_GAME_LIB})

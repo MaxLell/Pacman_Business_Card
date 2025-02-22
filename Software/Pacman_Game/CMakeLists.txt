@@ -1,16 +1,22 @@
 cmake_minimum_required(VERSION 3.28)
+project(Pacman_Game LANGUAGES CXX)
 
-set(APP_NAME Dummy_Project)
-
-project(${APP_NAME} LANGUAGES CXX)
-
-set(APP_SOURCE_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/app/app.cpp
+# Set runner for the Pacman game
+set(PACMAN_GAME Pacman_Game) # This is the human playable game
+set(PACMAN_GAME_SRC
+    ${CMAKE_CURRENT_SOURCE_DIR}/app/hello_world.cpp
 )
-set(APP_LIB_NAME ${APP_NAME}_lib)
-add_executable(${APP_NAME} ${APP_SOURCE_FILES})
+
+# Build the Pacman Logic Library
+set(PACMAN_GAME_LIB ${PACMAN_GAME}_lib)
+set(UI_LIB ${UI}_lib)
 add_subdirectory(lib)
-target_link_libraries(${APP_NAME} PRIVATE ${APP_LIB_NAME})
+
+
+# Compile the Pacman Game executable
+add_executable(${PACMAN_GAME} ${PACMAN_GAME_SRC})
+target_link_libraries(${PACMAN_GAME} PRIVATE ${PACMAN_GAME_LIB} {UI_LIB})
+
 
 # For the tests
 add_subdirectory(tests)

@@ -36,4 +36,4 @@ foreach(subdir ${ALL_FILES})
 endforeach()
 
 add_executable(${TEST_NAME} ${TEST_RUNNER} ${TEST_SOURCES})
-target_link_libraries(${TEST_NAME} PRIVATE CppUTest CppUTestExt ${APP_LIB_NAME})
+target_link_libraries(${TEST_NAME} PRIVATE CppUTest CppUTestExt ${PACMAN_GAME_LIB})
