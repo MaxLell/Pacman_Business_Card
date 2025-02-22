@@ -8,15 +8,14 @@ struct Coordinate
     u8 y;
 };
 
-class DataPool
+class GameState
 {
 private:
     Coordinate pacman_position;
 public:
-    DataPool(/* args */);
-    ~DataPool();
+    GameState(/* args */);
+    ~GameState();
 
     void setPacmanPosition(u8 x, u8 y);
     Coordinate getPacmanPosition() const;
 };
-
