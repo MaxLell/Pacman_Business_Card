@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types.h"
+#include "common_types.h"
 #include "environment.h"
 
 class UI

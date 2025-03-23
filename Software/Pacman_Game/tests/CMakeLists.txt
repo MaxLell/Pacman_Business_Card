@@ -10,15 +10,13 @@ FetchContent_Declare(
 )
 # Set this to ON if you want to have the CppUTests in your project as well.
 set(TESTS OFF CACHE BOOL "Switch off CppUTest Test build")
+set(MEMORY_LEAK_DETECTION ON CACHE BOOL "Enable memory leak detection in CppUTest") # Aktiviert Memory Leak Detection
+set(CPPUTEST_USE_STD_CPP_LIB ON CACHE BOOL "Use the standard C++ library for CppUTest") # Nutzt die Standard-C++-Bibliothek
 FetchContent_MakeAvailable(CppUTest)
 
 ################################################################
 
 set(TEST_RUNNER ${CMAKE_CURRENT_SOURCE_DIR}/test_utils/test_runner.cpp)
-
-set(TEST_SOURCES)
-
-# add_executable(${TEST_NAME} ${TEST_RUNNER})
 
 # This section does multiple things
 # 1. It fetches all the folders in which there are test files (these folder both contain a source and a CMakeFile)
@@ -36,4 +34,5 @@ foreach(subdir ${ALL_FILES})
 endforeach()
 
 add_executable(${TEST_NAME} ${TEST_RUNNER} ${TEST_SOURCES})
-target_link_libraries(${TEST_NAME} PRIVATE CppUTest CppUTestExt ${PACMAN_GAME_LIB})
+target_link_libraries(${TEST_NAME} PRIVATE CppUTest CppUTestExt ${PACMAN_GAME_LOGIC_LIB})
+
