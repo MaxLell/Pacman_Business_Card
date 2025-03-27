@@ -11,22 +11,14 @@ struct message
     u32 sizeBytes;
 };
 
-using messageCb =  std::function<void(message&)>;
+using messageCb =  std::function<void(const message&)>;
 
 struct topic {
     std::string topicId;
     std::vector<messageCb> subscribers;
 };
 
-class IMessageBroker
-{
-public:
-    virtual void publish(const std::string& topicId, message& msg) = 0;
-    virtual void subscribe(const std::string& topicId, messageCb callback) = 0;
-    virtual void unsubscribe(std::string& topicId, messageCb callback) = 0;
-};
-
-class MessageBroker : public IMessageBroker
+class MessageBroker 
 {
 private:
     std::vector<topic> topicsVector;
@@ -37,7 +29,7 @@ public:
     ~MessageBroker();
 
     std::vector<topic>& getTopics();
-    void publish(const std::string& topicId, message& msg);
-    void subscribe(const std::string& topicId, messageCb callback);
-    void unsubscribe(std::string& topicId, messageCb callback);
+    void publish(const std::string& topicId, const message& msg);
+    void subscribe(const std::string& topicId, const messageCb callback);
+    void unsubscribe(const std::string& topicId, const messageCb callback);
 };

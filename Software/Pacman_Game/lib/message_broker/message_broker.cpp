@@ -11,7 +11,7 @@ MessageBroker::~MessageBroker()
 {
 }
 
-void MessageBroker::subscribe(const std::string& topicId, messageCb callback)
+void MessageBroker::subscribe(const std::string& topicId, const messageCb callback)
 {
     // Make sure that the provided topic has at least one character
     ASSERT(topicId.length() != 0);
@@ -46,12 +46,12 @@ void MessageBroker::subscribe(const std::string& topicId, messageCb callback)
     ASSERT(this->topicsVector.size() <= maxNofTopics);
 }
 
-void MessageBroker::unsubscribe(std::string& topicId, messageCb callback)
+void MessageBroker::unsubscribe(const std::string& topicId, const messageCb callback)
 {
     // To be done
 }
 
-void MessageBroker::publish(const std::string& topicId, message& msg)
+void MessageBroker::publish(const std::string& topicId, const message& msg)
 {
     // Input Sanity Checks
     topic topicToPublish;
