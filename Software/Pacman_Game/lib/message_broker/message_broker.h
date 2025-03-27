@@ -2,6 +2,8 @@
 #include "common_types.h"
 #include <string>
 #include <vector>
+#include <functional>
+
 
 struct message
 {
@@ -9,7 +11,7 @@ struct message
     u32 sizeBytes;
 };
 
-using messageCb =  void(*)(message&);
+using messageCb =  std::function<void(message&)>;
 
 struct topic {
     std::string topicId;
