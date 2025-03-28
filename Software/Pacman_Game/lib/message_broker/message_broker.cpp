@@ -11,7 +11,7 @@ MessageBroker::~MessageBroker()
 {
 }
 
-void MessageBroker::subscribe(const std::string& topicId, const messageCb callback)
+void MessageBroker::subscribeToTopic(const std::string& topicId, const messageCb callback)
 {
     // Make sure that the provided topic has at least one character
     ASSERT(topicId.length() != 0);
@@ -46,12 +46,37 @@ void MessageBroker::subscribe(const std::string& topicId, const messageCb callba
     ASSERT(this->topicsVector.size() <= maxNofTopics);
 }
 
-void MessageBroker::unsubscribe(const std::string& topicId, const messageCb callback)
+void MessageBroker::unsubscribeFromTopic(const std::string& topicId, const messageCb callback)
 {
-    // To be done
+    // Input Sanity Checks
+    topic* topicToUnsubscribe = nullptr;
+    for (topic& topic : this->topicsVector) {
+        if (topic.topicId == topicId) {
+            topicToUnsubscribe = &topic;
+            break;
+        }
+    }
+
+    // Check that topicToUnsubscribe is not null
+    ASSERT(topicToUnsubscribe != nullptr);
+
+    // Check that the subscribers vector is not empty
+    ASSERT(topicToUnsubscribe->subscribers.size() != 0);
+
+    // Unsubscribe the callback from the topic
+    auto it = std::remove_if(
+        topicToUnsubscribe->subscribers.begin(),
+        topicToUnsubscribe->subscribers.end(),
+        [&callback](const messageCb& subscriberCallback) {
+            auto subCb = subscriberCallback.target<void(*)(const message&)>();
+            auto inputCb = callback.target<void(*)(const message&)>();
+            return subCb && inputCb && *subCb == *inputCb; // Vergleiche die Funktionszeiger
+        });
+
+    topicToUnsubscribe->subscribers.erase(it, topicToUnsubscribe->subscribers.end());
 }
 
-void MessageBroker::publish(const std::string& topicId, const message& msg)
+void MessageBroker::publishToTopic(const std::string& topicId, const message& msg)
 {
     // Input Sanity Checks
     topic topicToPublish;

@@ -38,7 +38,7 @@ TEST(MB, subscribe_increases_the_topicsVector)
     CHECK_TRUE(testTopicsVector.size() == 0);
 
     // Subscribe to the topic
-    msgBroker.subscribe(testTopic, callback_test);
+    msgBroker.subscribeToTopic(testTopic, callback_test);
 
     // Test topic must have been added to the list, so the vector
     // must have increased in size
@@ -52,8 +52,8 @@ TEST(MB, subscribe_does_not_add_topic_twice)
     u8 maxNofTopics = 1;
     u8 maxNofSubscribers = 2;
     MessageBroker msgBroker(maxNofTopics, maxNofSubscribers);
-    msgBroker.subscribe(testTopic, callback_test);
-    msgBroker.subscribe(testTopic, callback_test);
+    msgBroker.subscribeToTopic(testTopic, callback_test);
+    msgBroker.subscribeToTopic(testTopic, callback_test);
     std::vector<topic> testTopicsVector = msgBroker.getTopics();
     CHECK_EQUAL(testTopicsVector.size(), 1);
     CHECK_EQUAL(testTopicsVector[0].subscribers.size(), 2);
@@ -66,11 +66,27 @@ TEST(MB, messageBroker_can_transfer_message_via_subscribe_and_publish)
     u8 maxNofSubscribers = 1;
     MessageBroker msgBroker(maxNofTopics, maxNofSubscribers);
 
-    msgBroker.subscribe(testTopic, callback_test);
+    msgBroker.subscribeToTopic(testTopic, callback_test);
     CHECK_FALSE(messageWasReceived);
 
     message dummy;
-    msgBroker.publish(testTopic, dummy);
+    msgBroker.publishToTopic(testTopic, dummy);
 
     CHECK_TRUE(messageWasReceived);
+}
+
+TEST(MB, unsubscribe_removes_a_subscriber)
+{
+    std::string testTopic = "testTopic";
+    u8 maxNofTopics = 1;
+    u8 maxNofSubscribers = 1;
+    MessageBroker msgBroker(maxNofTopics, maxNofSubscribers);
+
+    msgBroker.subscribeToTopic(testTopic, callback_test);
+    std::vector<topic> testTopicsVector = msgBroker.getTopics();
+    CHECK_EQUAL(testTopicsVector[0].subscribers.size(), 1);
+
+    msgBroker.unsubscribeFromTopic(testTopic, callback_test);
+    testTopicsVector = msgBroker.getTopics();
+    CHECK_EQUAL(testTopicsVector[0].subscribers.size(), 0);
 }

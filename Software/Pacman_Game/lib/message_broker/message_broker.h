@@ -29,7 +29,7 @@ public:
     ~MessageBroker();
 
     std::vector<topic>& getTopics();
-    void publish(const std::string& topicId, const message& msg);
-    void subscribe(const std::string& topicId, const messageCb callback);
-    void unsubscribe(const std::string& topicId, const messageCb callback);
+    void publishToTopic(const std::string& topicId, const message& msg);
+    void subscribeToTopic(const std::string& topicId, const messageCb callback);
+    void unsubscribeFromTopic(const std::string& topicId, const messageCb callback);
 };
