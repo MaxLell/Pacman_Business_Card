@@ -25,6 +25,7 @@ private:
     MessageBroker &msgBroker;
     std::string topicToPublish;
     message lastMsg;
+    std::vector<std::string> subscribedTopics;
 
 public:
     Person(MessageBroker &broker) : msgBroker(broker)
@@ -45,6 +46,7 @@ public:
         {
             this->recvMsg(msg);
         });
+        subscribedTopics.push_back(topic);
     }
 
     void sendMsg(message &msg, std::string topicToPublish)
@@ -64,6 +66,18 @@ public:
         lastMsg.data = new char[msg.sizeBytes];
         std::memcpy(lastMsg.data, msg.data, msg.sizeBytes);
         lastMsg.sizeBytes = msg.sizeBytes;
+    }
+
+    void unsubscribeFromTopic(std::string topic)
+    {
+        auto it = std::find(subscribedTopics.begin(), subscribedTopics.end(), topic);
+        if (it != subscribedTopics.end()) {
+            msgBroker.unsubscribeFromTopic(topic, [this](const message &msg)
+            {
+                this->recvMsg(msg);
+            });
+            subscribedTopics.erase(it);
+        }
     }
 
     const message& getLastMsg(){
@@ -145,34 +159,40 @@ TEST(MB_Alice_and_Bob, Bazar_talk) {
         topics[i] = "Topic" + std::to_string(i);
     }
 
-    // Subscribe to the topics -> All persons now subscribe to all topics
-    for (int i = 0; i < nofPersons; i++)
-    {
-        for (int j = 0; j < nofTopics; j++)
-        {
+    // Subscribe to the topics -> Now each person is subscribed to all topics
+    // That means sending one message from one person results in nofSubsPerTopic messages,
+    // whose receival can also be prooven
+    for (int i = 0; i < nofPersons; i++) {
+        for (int j = 0; j < nofTopics; j++) {
             persons[i].subscribeToTopic(topics[j]);
         }
     }
 
-    // Send a message from each person to each topic
-    for (int i = 0; i < nofPersons; i++)
-    {
-        for (int j = 0; j < nofTopics; j++)
-        {
-            std::string messageString = "Hello Topic" + std::to_string(j) + ", this is Person" + std::to_string(i);
-            sentMsg.data = (void *)messageString.c_str();
-            sentMsg.sizeBytes = messageString.size();
-            persons[i].sendMsg(sentMsg, topics[j]);
+    // Create one generic Hello world Message
+    message msg;
+    std::string messageString = "Hello World!";
+    msg.data = (void *)messageString.c_str();
+    msg.sizeBytes = messageString.size();
+
+    // Have all people send messages and confirm their receival
+    for (int i = 0; i < nofPersons; i++) {
+        for (int j = 0; j < nofTopics; j++) {
+            persons[i].sendMsg(msg, topics[j]);
+            receivedMsg = persons[i].getLastMsg();
+            CHECK_EQUAL(receivedMsg.sizeBytes, msg.sizeBytes);
         }
     }
 
-    // Check that each person received the message
-    for (int i = 0; i < nofPersons; i++)
-    {
-        for (int j = 0; j < nofTopics; j++)
-        {
-            receivedMsg = persons[i].getLastMsg();
-            CHECK_EQUAL(receivedMsg.sizeBytes, sentMsg.sizeBytes);
+    // Unsubscribe all persons from all topics and verify that their topic lists are empty
+    for (int i = 0; i < nofPersons; i++) {
+        for (int j = 0; j < nofTopics; j++) {
+            persons[i].unsubscribeFromTopic(topics[j]);
         }
     }
+
+    // Check that all persons are unsubscribed from all topics
+    std::vector<topic> tmpTopic = messageBroker.getTopics();
+    CHECK_EQUAL_ZERO(tmpTopic.size());
 }
+
+    

@@ -70,16 +70,34 @@ void MessageBroker::unsubscribeFromTopic(const std::string& topicId, const messa
         [&callback](const messageCb& subscriberCallback) {
             auto subCb = subscriberCallback.target<void(*)(const message&)>();
             auto inputCb = callback.target<void(*)(const message&)>();
-            return subCb && inputCb && *subCb == *inputCb; // Vergleiche die Funktionszeiger
+            return subCb && inputCb && *subCb == *inputCb; 
         });
 
+    // There must not be more then one callback being removed
+    ASSERT(std::distance(it, topicToUnsubscribe->subscribers.end()) == 1);
+
     topicToUnsubscribe->subscribers.erase(it, topicToUnsubscribe->subscribers.end());
+
+    // if (topicToUnsubscribe->subscribers.empty()) {
+    //     // If the subscriber vector is empty, remove the topic from the topicsVector
+    //     auto topicIt = std::remove_if(
+    //         this->topicsVector.begin(),
+    //         this->topicsVector.end(),
+    //         [&topicId](const topic& t) { return t.topicId == topicId; });
+
+
+    //     this->topicsVector.erase(topicIt, this->topicsVector.end());
+    // }
 }
 
 void MessageBroker::publishToTopic(const std::string& topicId, const message& msg)
 {
     // Input Sanity Checks
+    // Make sure that the module is only able to publish if there is at least one subscriber
+    // otherwise the message is lost
     topic topicToPublish;
+    topicToPublish.topicId = "";
+    topicToPublish.subscribers.clear();
     for (topic& topic : this->topicsVector) {
         if (topic.topicId == topicId) {
             topicToPublish = topic;
@@ -98,7 +116,7 @@ void MessageBroker::publishToTopic(const std::string& topicId, const message& ms
     }
 }
 
-std::vector<topic>& MessageBroker::getTopics()
+const std::vector<topic>& MessageBroker::getTopics()
 {
     return this->topicsVector;
 }

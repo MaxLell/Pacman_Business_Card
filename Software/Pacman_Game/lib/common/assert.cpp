@@ -4,7 +4,15 @@
 
 void assert_failed(const char* condition, const char* function, const char* file, int line)
 {
-    std::cerr << "Assertion failed: (" << condition << "), function " << function
-              << ", file " << file << ", line " << line << "." << std::endl;
+    std::cerr << "\n\n"
+              << "┌────────────────────────────────────────────────────────┐\n"
+              << "│                                                        │\n"
+              << "│                     ASSERT FAILED                      │\n"
+              << "│                                                        │\n"
+              << "└────────────────────────────────────────────────────────┘\n\n"
+              << "----> Condition: (" << condition << ")\n\n"
+              << "----> File: " << file << ", Line: " << line << "\n"
+              << std::endl;
+
     std::abort();
 }

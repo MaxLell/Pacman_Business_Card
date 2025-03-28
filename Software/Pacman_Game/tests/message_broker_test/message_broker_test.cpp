@@ -11,13 +11,12 @@ static bool messageWasReceived = false;
 TEST_GROUP(MB){
     void setup(){
         messageWasReceived = false;
-}
+    }
 
-void teardown()
-{
-}
-}
-;
+    void teardown()
+    {
+    }
+};
 
 
 
@@ -82,11 +81,17 @@ TEST(MB, unsubscribe_removes_a_subscriber)
     u8 maxNofSubscribers = 1;
     MessageBroker msgBroker(maxNofTopics, maxNofSubscribers);
 
+    // Subscribe to one topic
     msgBroker.subscribeToTopic(testTopic, callback_test);
     std::vector<topic> testTopicsVector = msgBroker.getTopics();
+    // Verify that there is one subscriber
     CHECK_EQUAL(testTopicsVector[0].subscribers.size(), 1);
 
+    // Unsubscribe from this topic
     msgBroker.unsubscribeFromTopic(testTopic, callback_test);
     testTopicsVector = msgBroker.getTopics();
+    // Verify that there are no subscribers
     CHECK_EQUAL(testTopicsVector[0].subscribers.size(), 0);
+    CHECK_EQUAL_ZERO(testTopicsVector.size());
 }
+

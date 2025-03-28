@@ -28,7 +28,7 @@ public:
     MessageBroker(u8 maxNofTopics, u8 maxNofSubscribers);
     ~MessageBroker();
 
-    std::vector<topic>& getTopics();
+    const std::vector<topic>& getTopics();
     void publishToTopic(const std::string& topicId, const message& msg);
     void subscribeToTopic(const std::string& topicId, const messageCb callback);
     void unsubscribeFromTopic(const std::string& topicId, const messageCb callback);
