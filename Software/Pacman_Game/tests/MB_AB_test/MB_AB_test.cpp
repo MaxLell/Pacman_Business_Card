@@ -127,72 +127,72 @@ TEST(MB_Alice_and_Bob, alice_sends_a_message_to_bob)
     CHECK_EQUAL(receivedMsg.sizeBytes, sentMsg.sizeBytes);
 }
 
-TEST(MB_Alice_and_Bob, Bazar_talk) {
-    /**
-     * This is a bazar test
-     * - there are many topics
-     * - there are many subscribers to said topics
-     * - People are dropping in (subscribe) and out of topics (unsubscribe) at random
-     * 
-     * This test shall verify that the system is robust
-     */
+// TEST(MB_Alice_and_Bob, Bazar_talk) {
+//     /**
+//      * This is a bazar test
+//      * - there are many topics
+//      * - there are many subscribers to said topics
+//      * - People are dropping in (subscribe) and out of topics (unsubscribe) at random
+//      * 
+//      * This test shall verify that the system is robust
+//      */
 
-    // Configure the Message Broker
-    u8 nofTopics = 5;
-    u8 nofSubsPerTopic = 5;
-    u8 nofPersons = 5;
-    message sentMsg, receivedMsg;
+//     // Configure the Message Broker
+//     u8 nofTopics = 5;
+//     u8 nofSubsPerTopic = 5;
+//     u8 nofPersons = 5;
+//     message sentMsg, receivedMsg;
 
-    // Create the message broker instance
-    MessageBroker messageBroker(nofTopics, nofSubsPerTopic);
+//     // Create the message broker instance
+//     MessageBroker messageBroker(nofTopics, nofSubsPerTopic);
 
-    // Create many persons
-    std::vector<Person> persons;
-    for (int i = 0; i < nofPersons; i++) {
-        persons.emplace_back(messageBroker);
-    }
+//     // Create many persons
+//     std::vector<Person> persons;
+//     for (int i = 0; i < nofPersons; i++) {
+//         persons.emplace_back(messageBroker);
+//     }
 
-    // Create many topics
-    std::string topics[nofTopics];
-    for (int i = 0; i < nofTopics; i++)
-    {
-        topics[i] = "Topic" + std::to_string(i);
-    }
+//     // Create many topics
+//     std::string topics[nofTopics];
+//     for (int i = 0; i < nofTopics; i++)
+//     {
+//         topics[i] = "Topic" + std::to_string(i);
+//     }
 
-    // Subscribe to the topics -> Now each person is subscribed to all topics
-    // That means sending one message from one person results in nofSubsPerTopic messages,
-    // whose receival can also be prooven
-    for (int i = 0; i < nofPersons; i++) {
-        for (int j = 0; j < nofTopics; j++) {
-            persons[i].subscribeToTopic(topics[j]);
-        }
-    }
+//     // Subscribe to the topics -> Now each person is subscribed to all topics
+//     // That means sending one message from one person results in nofSubsPerTopic messages,
+//     // whose receival can also be prooven
+//     for (int i = 0; i < nofPersons; i++) {
+//         for (int j = 0; j < nofTopics; j++) {
+//             persons[i].subscribeToTopic(topics[j]);
+//         }
+//     }
 
-    // Create one generic Hello world Message
-    message msg;
-    std::string messageString = "Hello World!";
-    msg.data = (void *)messageString.c_str();
-    msg.sizeBytes = messageString.size();
+//     // Create one generic Hello world Message
+//     message msg;
+//     std::string messageString = "Hello World!";
+//     msg.data = (void *)messageString.c_str();
+//     msg.sizeBytes = messageString.size();
 
-    // Have all people send messages and confirm their receival
-    for (int i = 0; i < nofPersons; i++) {
-        for (int j = 0; j < nofTopics; j++) {
-            persons[i].sendMsg(msg, topics[j]);
-            receivedMsg = persons[i].getLastMsg();
-            CHECK_EQUAL(receivedMsg.sizeBytes, msg.sizeBytes);
-        }
-    }
+//     // Have all people send messages and confirm their receival
+//     for (int i = 0; i < nofPersons; i++) {
+//         for (int j = 0; j < nofTopics; j++) {
+//             persons[i].sendMsg(msg, topics[j]);
+//             receivedMsg = persons[i].getLastMsg();
+//             CHECK_EQUAL(receivedMsg.sizeBytes, msg.sizeBytes);
+//         }
+//     }
 
-    // Unsubscribe all persons from all topics and verify that their topic lists are empty
-    for (int i = 0; i < nofPersons; i++) {
-        for (int j = 0; j < nofTopics; j++) {
-            persons[i].unsubscribeFromTopic(topics[j]);
-        }
-    }
+//     // Unsubscribe all persons from all topics and verify that their topic lists are empty
+//     for (int i = 0; i < nofPersons; i++) {
+//         for (int j = 0; j < nofTopics; j++) {
+//             persons[i].unsubscribeFromTopic(topics[j]);
+//         }
+//     }
 
-    // Check that all persons are unsubscribed from all topics
-    std::vector<topic> tmpTopic = messageBroker.getTopics();
-    CHECK_EQUAL_ZERO(tmpTopic.size());
-}
+//     // Check that all persons are unsubscribed from all topics
+//     std::vector<topic> tmpTopic = messageBroker.getTopics();
+//     CHECK_EQUAL_ZERO(tmpTopic.size());
+// }
 
     

@@ -11,7 +11,7 @@ void assert_failed(const char* condition, const char* function, const char* file
               << "│                                                        │\n"
               << "└────────────────────────────────────────────────────────┘\n\n"
               << "----> Condition: (" << condition << ")\n\n"
-              << "----> File: " << file << ", Line: " << line << "\n"
+              << "----> File: " << file << ":"<< line << "\n"
               << std::endl;
 
     std::abort();
