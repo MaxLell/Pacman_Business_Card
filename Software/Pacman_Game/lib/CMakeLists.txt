@@ -6,7 +6,7 @@ set(PACMAN_GAME_LOGIC_LIB_INC_FILES
 
 set(PACMAN_GAME_LOGIC_LIB_SRC_FILES 
     ${CMAKE_CURRENT_SOURCE_DIR}/common/assert.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/message_broker/message_broker.cpp
+    # ${CMAKE_CURRENT_SOURCE_DIR}/message_broker/message_broker.cpp
 )
 
 add_library(${PACMAN_GAME_LOGIC_LIB} STATIC ${PACMAN_GAME_LOGIC_LIB_SRC_FILES})
