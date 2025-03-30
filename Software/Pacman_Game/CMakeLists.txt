@@ -4,6 +4,16 @@ project(Pacman_Game LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# # fetch Logging Module
+# include(FetchContent)
+# FetchContent_Declare(LoguruGitRepo
+# 	GIT_REPOSITORY "https://github.com/emilk/loguru" # can be a filesystem path
+# 	GIT_TAG        "master"
+# )
+# # set any loguru compile-time flags before calling MakeAvailable()
+# set(LOGURU_WITH_STREAMS TRUE)
+# FetchContent_MakeAvailable(LoguruGitRepo) # defines target 'loguru::loguru'
+
 # Set runner for the Pacman game
 set(PACMAN_GAME Pacman_Game) # This is the human playable game
 set(UI_LIB ui_lib)
