@@ -43,7 +43,7 @@ TEST(assert_tests, triggering_an_assert_shall_throw_an_exceptio_when_testing) {
     try {
         ASSERT(false);
     } catch (const std::runtime_error& e) {
-        STRCMP_EQUAL("ASSERT triggered", e.what());
+        STRCMP_EQUAL("ASSERT", e.what());
         std::cout << e.what() << std::endl;
     }
 }

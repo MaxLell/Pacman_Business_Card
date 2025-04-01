@@ -19,6 +19,9 @@ void assert_failed(const char* condition, const char* function, const char* file
 
     std::abort();
     #else
-    throw std::runtime_error("ASSERT triggered");
+    // std::cerr << "##### ASSERT triggered #####\n" 
+    //           << "----> Condition: (" << condition << ")\n"
+    //           << "----> File:      " << file << ":"<< line  << std::endl;
+    throw std::runtime_error("ASSERT");
     #endif
 }

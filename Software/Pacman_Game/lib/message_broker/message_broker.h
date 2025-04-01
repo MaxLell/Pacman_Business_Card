@@ -17,6 +17,8 @@ struct callbackEntry {
     messageCb callback;   
 };
 
+constexpr std::size_t MAX_TOPICS = 100; // Maximum number of topics allowed
+
 template <typename Topic, std::size_t nofCbPerTopic>
 class MessageBroker
 {
@@ -30,6 +32,8 @@ public:
     u32 getRandomCbId();
 
 private:
+    static_assert(static_cast<std::size_t>(Topic::LAST_TOPIC) <= MAX_TOPICS,
+                  "The number of topics exceeds the maximum allowed limit");
     static constexpr std::size_t maxTopics = static_cast<std::size_t>(Topic::LAST_TOPIC);
     std::array<std::array<callbackEntry, nofCbPerTopic>, maxTopics> topicLookUpTable;
     u32 seed;
