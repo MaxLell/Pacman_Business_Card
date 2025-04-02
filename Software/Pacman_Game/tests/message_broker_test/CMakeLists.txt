@@ -6,6 +6,7 @@ set(TEST_LIBRARY_NAME ${TEST_NAME}_lib)
 set(TEST_SOURCES
     ${TEST_NAME}.cpp
     ${TEST_RUNNER}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../mocks/assert_mock.cpp
 )
 
 # Add the test executable which is only concerned with the current test

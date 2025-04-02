@@ -1,49 +1,24 @@
-// #include <iostream>
-// #include <cstdlib>
-// #include <sys/types.h>
-// #include <sys/wait.h>
-// #include <unistd.h>
-// #include "CppUTest/TestHarness.h"
-
-// void functionThatAborts() {
-//     std::abort(); // Simuliert einen Fehler
-// }
-
-// TEST_GROUP(AbortTests) {
-//     void setup() {}
-//     void teardown() {}
-// };
-
-// TEST(AbortTests, DetectAbort) {
-//     pid_t pid = fork();
-//     if (pid == 0) {
-//         // Kindprozess
-//         functionThatAborts();
-//         exit(0); // Sollte nie erreicht werden
-//     } else {
-//         // Elternprozess
-//         int status;
-//         waitpid(pid, &status, 0);
-//         CHECK(WIFSIGNALED(status)); // Überprüft, ob das Kind durch ein Signal beendet wurde
-//         CHECK_EQUAL(SIGABRT, WTERMSIG(status)); // Überprüft, ob das Signal SIGABRT war
-//     }
-// }
-
-#include <stdexcept>
 #include "assert.h"
 #include <iostream>
+#include "CppUTestExt/MockSupport.h"
 #include "CppUTest/TestHarness.h"
 
 TEST_GROUP(assert_tests) {
-    void setup() {}
-    void teardown() {}
+    void setup() {
+        mock().clear(); // Mock-Daten vor jedem Test zurücksetzen
+    }
+    void teardown() {
+        mock().clear();
+    }
 };
 
-TEST(assert_tests, triggering_an_assert_shall_throw_an_exceptio_when_testing) {
-    try {
-        ASSERT(false);
-    } catch (const std::runtime_error& e) {
-        STRCMP_EQUAL("ASSERT", e.what());
-        std::cout << e.what() << std::endl;
-    }
+TEST(assert_tests, triggering_an_assert_shall_call_mocked_assert_failed) {
+    // Erwartung setzen, bevor ASSERT aufgerufen wird
+    mock().expectOneCall("assert_failed")
+          .withParameter("condition", "false")
+          .ignoreOtherParameters();
+    
+    ASSERT(false); 
+
+    mock().checkExpectations();
 }
