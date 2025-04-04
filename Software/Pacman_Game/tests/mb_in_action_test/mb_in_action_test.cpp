@@ -5,7 +5,7 @@
 
 #include "CppUTest/TestHarness.h"
 
-
+// clang-format off
 TEST_GROUP(MessageBroker_in_action_with_modules){
     void setup(){
 
@@ -15,6 +15,7 @@ TEST_GROUP(MessageBroker_in_action_with_modules){
         // nothing much happening here
     }
 };
+// clang-format on
 
 /**
  * ----------------------------------------------------------------------------------------------------

@@ -10,6 +10,29 @@ set(PACMAN_GAME_LOGIC_LIB_SRC_FILES
 
 add_library(${PACMAN_GAME_LOGIC_LIB} STATIC ${PACMAN_GAME_LOGIC_LIB_SRC_FILES})
 target_include_directories(${PACMAN_GAME_LOGIC_LIB} PUBLIC ${PACMAN_GAME_LOGIC_LIB_INC_FILES})
+target_compile_options(${PACMAN_GAME_LOGIC_LIB} PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+    -Werror
+    -Wshadow
+    -Wnon-virtual-dtor
+    -Wold-style-cast
+    -Wcast-align
+    -Wconversion
+    -Wsign-conversion
+    -Wnull-dereference
+    -Wdouble-promotion
+    -Wformat=2
+    -Wdeprecated-declarations
+    -Woverloaded-virtual
+    -Wuseless-cast
+    -O2
+    -march=native
+    -g
+    -fsanitize=address
+    -fsanitize=undefined
+)
 
 set(UI_LIB_INC_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/common 
@@ -21,4 +44,6 @@ set(UI_LIB_SRC_FILES
 
 add_library(${UI_LIB} STATIC ${UI_LIB_SRC_FILES})
 target_include_directories(${UI_LIB} PUBLIC ${UI_LIB_INC_FILES})
+
+
 
