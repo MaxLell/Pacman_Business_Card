@@ -32,15 +32,16 @@ enum class TestTopic
     LAST_TOPIC
 };
 
-struct coordintates {
+struct coordintates
+{
     u8 x;
     u8 y;
 };
 
 class Module
-{    
+{
 public:
-Module(MessageBroker<TestTopic, 5> mb); // Specify template arguments
+    Module(MessageBroker<TestTopic, 5> mb); // Specify template arguments
     ~Module();
     void subscribeToTopics();
     void sendCoordinatesXY(coordintates coordinate);
@@ -49,12 +50,10 @@ Module(MessageBroker<TestTopic, 5> mb); // Specify template arguments
 private:
     MessageBroker<TestTopic, 5> msgBroker;
     coordintates coordinate;
-    
 };
 
 Module::Module(MessageBroker<TestTopic, 5> mb) : msgBroker(mb)
 {
-    
 }
 
 Module::~Module()
@@ -64,15 +63,19 @@ Module::~Module()
 void Module::subscribeToTopics()
 {
     u32 randomId = msgBroker.getRandomCbId();
-    msgBroker.subscribe(TestTopic::TOPIC_1, {randomId, [this](const message& msg) {
-        if (msg.sizeBytes == sizeof(coordintates))
-        {
-            coordintates* receivedCoordinate = static_cast<coordintates*>(msg.data);
-            coordinate = *receivedCoordinate;
-        } else {
-            ASSERT(false); // Invalid message size
-        }
-    }});
+    msgBroker.subscribe(TestTopic::TOPIC_1, 
+                       {randomId, [this](const message &msg)
+                                    {
+                                        if (msg.sizeBytes == sizeof(coordintates))
+                                        {
+                                            coordintates *receivedCoordinate = static_cast<coordintates *>(msg.data);
+                                            coordinate = *receivedCoordinate;
+                                        }
+                                        else
+                                        {
+                                            ASSERT(false); // Invalid message size
+                                        }
+                                    }});
 }
 
 void Module::sendCoordinatesXY(coordintates coordinate)
@@ -99,11 +102,9 @@ TEST(MessageBroker_in_action_with_modules, moduleA_sends_msg_to_itself)
     Module moduleA(mb);
     moduleA.subscribeToTopics();
 
-    coordintates sent = { 5, 10 };
+    coordintates sent = {5, 10};
     moduleA.sendCoordinatesXY(sent);
     coordintates recv = moduleA.getCoordinatesXY();
     CHECK_EQUAL(sent.x, recv.x);
-    CHECK_EQUAL(sent.y, recv.y);    
+    CHECK_EQUAL(sent.y, recv.y);
 }
-
-
