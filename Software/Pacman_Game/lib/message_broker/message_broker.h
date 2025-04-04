@@ -78,6 +78,7 @@ void MessageBroker<Topic, nofCbPerTopic>::subscribe(Topic topic, callbackEntry c
     std::size_t topicIdx;
     topicIdx = static_cast<std::size_t>(topic);
 
+    // Input Checks
     ASSERT(topicIdx < maxTopics);// Check if the topic is valid
     ASSERT(cbEntry.callbackIdNumber != 0);// cbEntry's Id must not be 0
     // cbEntry's Id must be unique
@@ -86,6 +87,11 @@ void MessageBroker<Topic, nofCbPerTopic>::subscribe(Topic topic, callbackEntry c
         ASSERT(topicLookUpTable[topicIdx][i].callbackIdNumber != cbEntry.callbackIdNumber);
     }
 
+    // Add the callback entry to the topicLookUpTable
+    // Check if we have space in the topicLookUpTable
+    // If not, we have a problem
+    // We assume that the topicLookUpTable is not full, so we can add the callback
+    // entry to the first free space
     bool foundSpace = false;
     for (std::size_t i = 0; i < nofCbPerTopic; ++i)
     {
