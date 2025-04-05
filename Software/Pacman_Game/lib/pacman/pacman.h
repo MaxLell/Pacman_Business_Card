@@ -1,7 +1,5 @@
 #pragma once
-#include "message_broker.h"
-#include "topic_definitions.h"
-#include "message_data_types.h"
+#include "data_pool.h"
 
 
 class Pacman
