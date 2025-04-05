@@ -19,15 +19,13 @@ TEST_GROUP(DataPool_test){
 };
 // clang-format on
 
-
 TEST(DataPool_test, walls_can_be_set_and_get)
 {
-    const std::size_t NOF_ROWS = 5;
-    const std::size_t NOF_COLUMNS = 5;
+    // Access the Singleton instance
+    auto& dataPool = DataPool::getInstance();
 
     // Create a random 5x5 maze (needs to fit into Walls datastructure)
-    auto& dataPool = DataPool<NOF_ROWS, NOF_COLUMNS>::getInstance();
-    Walls<NOF_ROWS, NOF_COLUMNS> walls;
+    Walls walls;
     walls[0] = std::bitset<NOF_COLUMNS>("11111");
     walls[1] = std::bitset<NOF_COLUMNS>("10001");
     walls[2] = std::bitset<NOF_COLUMNS>("10101");
@@ -36,7 +34,7 @@ TEST(DataPool_test, walls_can_be_set_and_get)
     dataPool.setWalls(walls);
 
     // Check if the walls are set correctly
-    const Walls<NOF_ROWS, NOF_COLUMNS>& retrievedWalls = dataPool.getWalls();
+    const Walls& retrievedWalls = dataPool.getWalls();
     for (std::size_t i = 0; i < NOF_ROWS; ++i)
     {
         for (std::size_t j = 0; j < NOF_COLUMNS; ++j)
@@ -51,12 +49,11 @@ TEST(DataPool_test, walls_can_be_set_and_get)
 
 TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
 {
-    const std::size_t NOF_ROWS = 5;
-    const std::size_t NOF_COLUMNS = 5;
+    // Access the Singleton instance
+    auto& dataPool = DataPool::getInstance();
 
     // Create a random 5x5 maze (needs to fit into Walls datastructure)
-    auto& dataPool = DataPool<NOF_ROWS, NOF_COLUMNS>::getInstance();
-    Walls<NOF_ROWS, NOF_COLUMNS> walls;
+    Walls walls;
     walls[0] = std::bitset<NOF_COLUMNS>("11111");
     walls[1] = std::bitset<NOF_COLUMNS>("10001");
     walls[2] = std::bitset<NOF_COLUMNS>("10101");
@@ -65,7 +62,7 @@ TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
     dataPool.setWalls(walls);
 
     // Check if the isWallAt function returns true for wall positions
-    position pos;
+    positionXY pos;
     pos.x = 0;
     pos.y = 0;
     CHECK(dataPool.isWallAt(pos));
@@ -78,14 +75,14 @@ TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
     pos.y = 4;
     CHECK(dataPool.isWallAt(pos));
 }
+
 TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
 {
-    const std::size_t NOF_ROWS = 5;
-    const std::size_t NOF_COLUMNS = 5;
+    // Access the Singleton instance
+    auto& dataPool = DataPool::getInstance();
 
     // Create a random 5x5 maze (needs to fit into Walls datastructure)
-    auto& dataPool = DataPool<NOF_ROWS, NOF_COLUMNS>::getInstance();
-    Walls<NOF_ROWS, NOF_COLUMNS> walls;
+    Walls walls;
     walls[0] = std::bitset<NOF_COLUMNS>("11111");
     walls[1] = std::bitset<NOF_COLUMNS>("10001");
     walls[2] = std::bitset<NOF_COLUMNS>("10101");
@@ -94,7 +91,7 @@ TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
     dataPool.setWalls(walls);
 
     // Check if the isWallAt function returns false for non-wall positions
-    position pos;
+    positionXY pos;
     pos.x = 1;
     pos.y = 2;
     CHECK(!dataPool.isWallAt(pos));
@@ -110,12 +107,11 @@ TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
 
 TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
 {
-    const std::size_t NOF_ROWS = 5;
-    const std::size_t NOF_COLUMNS = 5;
+   // Access the Singleton instance
+    auto& dataPool = DataPool::getInstance();
 
     // Create a random 5x5 maze (needs to fit into Walls datastructure)
-    auto& dataPool = DataPool<NOF_ROWS, NOF_COLUMNS>::getInstance();
-    Walls<NOF_ROWS, NOF_COLUMNS> walls;
+    Walls walls;
     walls[0] = std::bitset<NOF_COLUMNS>("11111");
     walls[1] = std::bitset<NOF_COLUMNS>("10001");
     walls[2] = std::bitset<NOF_COLUMNS>("10101");
@@ -124,11 +120,11 @@ TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
     dataPool.setWalls(walls);
 
     // Check if the isWallAt function throws an assertion error for out-of-bounds positions
-    position pos;
-    pos.x = NOF_ROWS + 1; // Out of bounds
+    positionXY pos;
+    pos.x = 255; // Out of bounds
     pos.y = 0;
     mock_verifyAssertWasTriggered(
-        "pos.x < NOF_ROWS && pos.y < NOF_COLUMNS",
+        "pos.x < NOF_ROWS",
         [&dataPool, &pos]()
         { dataPool.isWallAt(pos); });
 }
