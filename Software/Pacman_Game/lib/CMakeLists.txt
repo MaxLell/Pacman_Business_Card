@@ -3,11 +3,14 @@ set(PACMAN_GAME_LOGIC_LIB_INC_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/common
     ${CMAKE_CURRENT_SOURCE_DIR}/message_broker
     ${CMAKE_CURRENT_SOURCE_DIR}/pacman
+    ${CMAKE_CURRENT_SOURCE_DIR}/data_pool
+
 )
 
 set(PACMAN_GAME_LOGIC_LIB_SRC_FILES 
     ${CMAKE_CURRENT_SOURCE_DIR}/common/assert.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/pacman/pacman.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/data_pool/data_pool.cpp
 )
 
 add_library(${PACMAN_GAME_LOGIC_LIB} STATIC ${PACMAN_GAME_LOGIC_LIB_SRC_FILES})
@@ -35,17 +38,6 @@ target_compile_options(${PACMAN_GAME_LOGIC_LIB} PRIVATE
     -fsanitize=address
     -fsanitize=undefined
 )
-
-set(UI_LIB_INC_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/common 
-)
-
-set(UI_LIB_SRC_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/common/assert.cpp
-)
-
-add_library(${UI_LIB} STATIC ${UI_LIB_SRC_FILES})
-target_include_directories(${UI_LIB} PUBLIC ${UI_LIB_INC_FILES})
 
 
 
