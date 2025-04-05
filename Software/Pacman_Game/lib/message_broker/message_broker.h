@@ -2,7 +2,7 @@
 #include <array>
 #include <functional>
 #include "common_types.h"
-#include "assert.h"
+#include "custom_assert.h"
 
 struct message
 {

@@ -10,7 +10,7 @@ set (TEST_INCLUDES
 set(TEST_SOURCES
     ${TEST_NAME}.cpp
     ${TEST_RUNNER}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../mocks/assert_mock.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../mocks/custom_assert_mock.cpp
 )
 
 # Add the test executable which is only concerned with the current test

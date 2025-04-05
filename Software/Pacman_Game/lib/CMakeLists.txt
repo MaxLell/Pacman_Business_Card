@@ -7,7 +7,7 @@ set(PACMAN_GAME_LOGIC_LIB_INC_FILES
 )
 
 set(PACMAN_GAME_LOGIC_LIB_SRC_FILES 
-    ${CMAKE_CURRENT_SOURCE_DIR}/common/assert.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/common/custom_assert.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/pacman/pacman.cpp
 )
 

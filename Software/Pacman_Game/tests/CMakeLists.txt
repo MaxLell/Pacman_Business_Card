@@ -19,7 +19,7 @@ FetchContent_MakeAvailable(CppUTest)
 set(TEST_RUNNER ${CMAKE_CURRENT_SOURCE_DIR}/test_utils/test_runner.cpp)
 
 set(ALL_TEST_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/../mocks)
-set(ALL_TEST_SOURCES  ${CMAKE_CURRENT_SOURCE_DIR}/../mocks/assert_mock.cpp)
+set(ALL_TEST_SOURCES  ${CMAKE_CURRENT_SOURCE_DIR}/../mocks/custom_assert_mock.cpp)
 
 # This section does multiple things
 # 1. It fetches all the folders in which there are test files (these folder both contain a source and a CMakeFile)

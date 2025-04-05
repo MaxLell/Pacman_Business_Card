@@ -1,5 +1,5 @@
 #include "pacman.h"
-#include "assert.h"
+#include "custom_assert.h"
 
 Pacman::Pacman()
 {

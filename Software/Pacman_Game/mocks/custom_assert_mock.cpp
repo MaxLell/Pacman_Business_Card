@@ -1,8 +1,8 @@
 #include <iostream>
 #include <stdexcept>
-#include "assert_mock.h"
 
-#include "assert.h"
+#include "custom_assert.h"
+#include "custom_assert_mock.h"
 
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"

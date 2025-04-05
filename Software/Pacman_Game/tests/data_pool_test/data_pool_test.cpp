@@ -1,6 +1,6 @@
 #include <iostream>
-#include "assert.h"
-#include "assert_mock.h"
+#include "custom_assert.h"
+#include "custom_assert_mock.h"
 #include "common_types.h"
 #include "data_pool.h"
 

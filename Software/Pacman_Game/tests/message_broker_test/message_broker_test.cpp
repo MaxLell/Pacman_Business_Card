@@ -1,6 +1,6 @@
 #include "message_broker.h"
-#include "assert.h"
-#include "assert_mock.h"
+#include "custom_assert.h"
+#include "custom_assert_mock.h"
 #include "topic_definitions.h"
 #include <iostream>
 

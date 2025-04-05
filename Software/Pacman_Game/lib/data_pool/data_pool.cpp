@@ -1,0 +1,38 @@
+#include "data_pool.h"
+
+// Singleton instance accessor
+DataPool& DataPool::getInstance() {
+    static DataPool instance; // Static instance of DataPool
+    return instance;
+}
+
+// Private constructor
+DataPool::DataPool() {
+    // Initialize walls with all bits set to 0 (no walls)
+    for (auto& row : walls) {
+        row.reset();
+    }
+}
+
+// Private destructor
+DataPool::~DataPool() {
+    // No dynamic memory to clean up
+}
+
+// Setter for Walls
+void DataPool::setWalls(const Walls& inputWalls) {
+    walls = inputWalls;
+}
+
+// Getter for Walls
+const Walls& DataPool::getWalls() const {
+    return walls;
+}
+
+// Check if a wall exists at a specific position
+bool DataPool::isWallAt(positionXY pos) const {
+    // Ensure the position is within bounds
+    ASSERT(pos.x < NOF_ROWS); 
+    ASSERT(pos.y < NOF_COLUMNS);
+    return walls[pos.x][pos.y];
+}

@@ -1,5 +1,6 @@
 #include <iostream>
-#include "assert.h"
+#include "custom_assert.h"
+#include "custom_assert_mock.h"
 #include "common_types.h"
 #include "message_broker.h"
 
