@@ -20,3 +20,7 @@
 //     LAST_TOPIC
 // };
 
+enum class PacmanLogicTopics {
+    Walls = 0,
+    LAST_TOPIC
+};

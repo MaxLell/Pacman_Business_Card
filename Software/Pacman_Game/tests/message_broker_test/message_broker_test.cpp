@@ -1,7 +1,7 @@
 #include "message_broker.h"
 #include "assert.h"
 #include "assert_mock.h"
-#include "message_definitions.h"
+#include "topic_definitions.h"
 #include <iostream>
 
 #include "CppUTest/TestHarness.h"
