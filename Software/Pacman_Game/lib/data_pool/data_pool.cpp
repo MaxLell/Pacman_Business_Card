@@ -36,3 +36,37 @@ bool DataPool::isWallAt(positionXY pos) const {
     ASSERT(pos.y < NOF_COLUMNS);
     return walls[pos.x][pos.y];
 }
+
+// Setter für Pacman-Position
+void DataPool::setPacmanPosition(positionXY pos) {
+
+    ASSERT(pos.x < NOF_ROWS);
+    ASSERT(pos.y < NOF_COLUMNS);
+    pacmanPosition = pos; 
+}
+
+// Getter für Pacman-Position
+positionXY DataPool::getPacmanPosition() const {
+    return pacmanPosition; 
+}
+
+// Setter for Control Inputs
+void DataPool::setControlInputs(ctrlInput input) {
+    controlInput = input; // Speichere den Steuerungseingang
+}
+
+// Getter for Control Inputs
+ctrlInput DataPool::getControlInputs() const {
+    return controlInput; // Gib den aktuellen Steuerungseingang zurück
+}
+
+void DataPool::runIntegrityChecks() const {
+    // Pacman's position must not be the same as a wall
+    ASSERT(!isWallAt(pacmanPosition)); 
+
+    // Pacman's position must not the same as a pellet
+
+    // Pacman's position must not be the same as a superpellet
+
+    // Pacman's position must not be the same as a Ghost
+}

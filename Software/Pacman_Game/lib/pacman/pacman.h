@@ -5,55 +5,20 @@
 class Pacman
 {
 public:
-    Pacman();
+    Pacman(DataPool& dP);
     ~Pacman();
 
-    // void update();
+    void update();
 
-    // controlInputs getControlInput();
+    positionXY move(ctrlInput input, positionXY currentPosition);
 
-    // positionXY move(controlInputs input, positionXY currentPosition);
+    // void eatPellet();
 
-    // bool isWallAt(positionXY position);
+    // void eatPowerPellet();
 
+    // void eatGhost(ghostType ghost);
 
 private:
-
+    DataPool& dataPool;
 };
 
-/**
- * How it shall look like:
- */
-
-/*
-void Pacman::update() {
-    controlInput = getControlInput();
-
-    updatedPosition = move(controlInput, currentPosition);
-
-    if (isWallAt(updatedPosition)) {
-        // Falls Pacman gegen eine Wand läuft, Bewegung rückgängig machen
-        updatedPosition = undoMove(currentPosition);
-    }
-
-    if (isPelletAt(updatedPosition)) {
-        eatPellet();
-    }
-
-    if (isSuperPelletAt(updatedPosition)) {
-        eatPowerPellet();
-    }
-
-    for (Ghost& ghost : ghosts)
-    if (isGhostAt(ghost, updatedPosition)) {
-        if(isGhostScared(ghost)) 
-        {
-            eatGhost(ghost);
-        } else {
-            die();
-        }
-    }
-
-}
-
-    */
