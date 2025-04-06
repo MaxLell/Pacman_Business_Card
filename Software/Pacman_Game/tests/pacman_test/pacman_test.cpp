@@ -5,7 +5,6 @@
 #include "topic_definitions.h"
 #include "pacman.h"
 #include "data_pool.h"
-#include "maze.h"
 #include "environment_generator.h"
 
 #include "CppUTestExt/MockSupport.h"
@@ -23,18 +22,16 @@ TEST_GROUP(pacman_tests){
 };
 // clang-format on
 
-
-
 TEST(pacman_tests, pacman_can_change_coordinates_with_move_function) {
-    // set up the datapool
+    // Set up the DataPool
     DataPool& dataPool = DataPool::getInstance();
     positionXY pacmanPosition = {1, 1}; // Initial position
     dataPool.setPacmanPosition(pacmanPosition);
 
-    // set up the control input
+    // Set up the control input
     ctrlInput controlInput = ctrlInput::Right;
 
-    // initialize pacman with said datapool
+    // Initialize Pacman with the DataPool
     Pacman pacman(dataPool);
 
     // Call the move function
@@ -47,22 +44,22 @@ TEST(pacman_tests, pacman_can_change_coordinates_with_move_function) {
 
 TEST(pacman_tests, can_move_around_in_a_maze)
 {
-    Walls walls;
-    // Generate a maze with 10 columns and 10 rows
+    // Load walls using the refactored function
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
-    envGen.loadWallsFromStringArray(testMaze, walls);
+    envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
 
     // Set the walls in the DataPool
     DataPool& dataPool = DataPool::getInstance();
-    dataPool.setWalls(walls);
+    dataPool.setWalls(static_cast<Walls>(walls));
 
-    dataPool.setPacmanPosition({1,1});
+    dataPool.setPacmanPosition({1, 1});
 
     // Set the control input
     ctrlInput controlInput = ctrlInput::Right;
     dataPool.setControlInputs(controlInput);
 
-    // initialize pacman with said datapool
+    // Initialize Pacman with the DataPool
     Pacman pacman(dataPool);
     pacman.update();
 
@@ -73,14 +70,16 @@ TEST(pacman_tests, can_move_around_in_a_maze)
 }
 
 TEST(pacman_tests, moving_pacman_through_the_maze_does_not_trigger_assert) {
-    // have pacman run move throught the maze with many random moves
-    // At each iteration run the integrity check -> which must not be triggered
+    // Have Pacman move through the maze with many random moves
+    // At each iteration, run the integrity check -> no asserts must be triggered
 
-    Walls walls;
+    // Load walls using the refactored function
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
-    envGen.loadWallsFromStringArray(testMaze, walls);
+    envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
+
     DataPool& dataPool = DataPool::getInstance();
-    dataPool.setWalls(walls);
+    dataPool.setWalls(static_cast<Walls>(walls));
     dataPool.setPacmanPosition({1, 1});
 
     const int nofIterations = 100000;
@@ -92,7 +91,27 @@ TEST(pacman_tests, moving_pacman_through_the_maze_does_not_trigger_assert) {
         Pacman pacman(dataPool);
         pacman.update();
 
-        // run integrity check - no asserts must be triggered
+        // Run integrity check - no asserts must be triggered
         dataPool.runIntegrityChecks();       
     }
+}
+
+TEST(pacman_tests, when_pacman_eats_a_pellet_the_score_is_increased) {
+    DataPool& dataPool = DataPool::getInstance();
+    positionXY pacmanPosition = {1, 1}; // Position where there is also a pellet
+    dataPool.setPacmanPosition(pacmanPosition);
+
+    // Load pellets using the refactored function
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> pellets;
+    EnvironmentGenerator envGen;
+    envGen.loadMazeElementFromStringArray(MazeElementType::Pellets, pellets);
+    dataPool.setPellets(static_cast<Pellets>(pellets));
+    dataPool.setScore(0); 
+
+    Pacman pacman(dataPool);
+    pacman.eatPellet(pacmanPosition); 
+
+    // Check if the score is increased
+    Score newScore = dataPool.getScore();
+    CHECK(newScore > 0);
 }

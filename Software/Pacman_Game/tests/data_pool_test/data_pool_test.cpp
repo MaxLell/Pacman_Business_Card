@@ -5,7 +5,6 @@
 #include "data_pool.h"
 #include <string>
 #include "environment_generator.h"
-#include "maze.h"
 
 #include "CppUTestExt/MockSupport.h"
 #include "CppUTest/TestHarness.h"
@@ -27,11 +26,11 @@ TEST(DataPool_test, walls_can_be_set_and_get)
     // Access the Singleton instance
     auto &dataPool = DataPool::getInstance();
 
-    // Load walls from testMaze
-    Walls walls;
+    // Load walls using the refactored function
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
-    envGen.loadWallsFromStringArray(testMaze, walls);
-    dataPool.setWalls(walls);
+    envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
+    dataPool.setWalls(static_cast<Walls>(walls));
 
     // Check if the walls are set correctly
     const Walls &retrievedWalls = dataPool.getWalls();
@@ -47,15 +46,16 @@ TEST(DataPool_test, walls_can_be_set_and_get)
     }
 }
 
-TEST(DataPool_test, pellets_can_be_set_and_get) {
+TEST(DataPool_test, pellets_can_be_set_and_get)
+{
     // Access the Singleton instance
     auto &dataPool = DataPool::getInstance();
 
-    // Load pellets from testMaze
-    Pellets pellets;
+    // Load pellets using the refactored function
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> pellets;
     EnvironmentGenerator envGen;
-    envGen.loadPelletsFromStringArray(testMaze, pellets);
-    dataPool.setPellets(pellets);
+    envGen.loadMazeElementFromStringArray(MazeElementType::Pellets, pellets);
+    dataPool.setPellets(static_cast<Pellets>(pellets));
 
     // Check if the pellets are set correctly
     const Pellets &retrievedPellets = dataPool.getPellets();
@@ -76,11 +76,11 @@ TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
     // Access the Singleton instance
     auto &dataPool = DataPool::getInstance();
 
-    // Load walls from testMaze
-    Walls walls;
+    // Load walls using the refactored function
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
-    envGen.loadWallsFromStringArray(testMaze, walls);
-    dataPool.setWalls(walls);
+    envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
+    dataPool.setWalls(static_cast<Walls>(walls));
 
     // Check if the isWallAt function returns true for wall positions
     positionXY pos;
@@ -98,11 +98,11 @@ TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
     // Access the Singleton instance
     auto &dataPool = DataPool::getInstance();
 
-    // Load walls from testMaze
-    Walls walls;
+    // Load walls using the refactored function
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
-    envGen.loadWallsFromStringArray(testMaze, walls);
-    dataPool.setWalls(walls);
+    envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
+    dataPool.setWalls(static_cast<Walls>(walls));
 
     // Check if the isWallAt function returns false for non-wall positions
     positionXY pos;
@@ -124,11 +124,11 @@ TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
     // Access the Singleton instance
     auto &dataPool = DataPool::getInstance();
 
-    // Load walls from testMaze
-    Walls walls;
+    // Load walls using the refactored function
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
-    envGen.loadWallsFromStringArray(testMaze, walls);
-    dataPool.setWalls(walls);
+    envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
+    dataPool.setWalls(static_cast<Walls>(walls));
 
     // Check if the isWallAt function throws an assertion error for out-of-bounds positions
     positionXY pos;

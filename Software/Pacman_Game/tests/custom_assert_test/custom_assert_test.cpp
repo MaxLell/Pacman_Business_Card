@@ -2,7 +2,6 @@
 #include "custom_assert.h"
 #include "custom_assert_mock.h"
 
-
 #include "CppUTestExt/MockSupport.h"
 #include "CppUTest/TestHarness.h"
 

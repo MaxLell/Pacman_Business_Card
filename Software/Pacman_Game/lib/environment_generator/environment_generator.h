@@ -1,5 +1,13 @@
 #pragma once
-#include "data_pool.h"
+#include <bitset>
+#include <array>
+#include "environment_maze.h"
+
+enum class MazeElementType
+{
+    Walls,
+    Pellets
+};
 
 class EnvironmentGenerator
 {
@@ -9,12 +17,6 @@ public:
     EnvironmentGenerator(/* args */);
     ~EnvironmentGenerator();
 
-    // generate walls from string
-    void loadWallsFromStringArray(const std::string maze[NOF_ROWS], Walls& inoutWalls);
-
-    // generatePellets
-    void loadPelletsFromStringArray(const std::string maze[NOF_ROWS], Pellets& inoutPellets);
-
+    void loadMazeElementFromStringArray(MazeElementType type, std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> &inoutElement);
     // generateSuperPellet
 };
-

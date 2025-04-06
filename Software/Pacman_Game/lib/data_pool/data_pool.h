@@ -4,7 +4,7 @@
 #include "common_types.h"
 #include "custom_assert.h"
 #include "custom_data_types.h"
-#include "maze.h"
+#include "environment_generator.h"
 
 using Walls = std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS>;
 using Pellets = std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS>;
@@ -54,4 +54,5 @@ private:
     
     ctrlInput controlInput;
     positionXY pacmanPosition;
+    Score score;
 };

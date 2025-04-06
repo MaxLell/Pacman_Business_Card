@@ -31,6 +31,10 @@ void Pacman::update()
         eatPellet();
     }
     */
+    if (dataPool.isPelletAt(updatedPosition))
+    {
+        eatPellet(updatedPosition);
+    }
 
     /*
     if (isSuperPelletAt(updatedPosition)) {
@@ -63,7 +67,7 @@ positionXY Pacman::move(ctrlInput input, positionXY currentPosition)
         newPosition.y -= 1;
         if (newPosition.y < 0)
         {
-            newPosition.y = NOF_COLUMNS-1;
+            newPosition.y = NOF_COLUMNS - 1;
         }
         break;
     case ctrlInput::Down:
@@ -77,7 +81,7 @@ positionXY Pacman::move(ctrlInput input, positionXY currentPosition)
         newPosition.x -= 1;
         if (newPosition.x < 0)
         {
-            newPosition.x = NOF_ROWS-1;
+            newPosition.x = NOF_ROWS - 1;
         }
         break;
     case ctrlInput::Right:
@@ -93,4 +97,27 @@ positionXY Pacman::move(ctrlInput input, positionXY currentPosition)
     }
 
     return newPosition;
+}
+
+void Pacman::eatPellet(positionXY currentPosition)
+{
+    ASSERT(currentPosition.x >= 0 && currentPosition.x < NOF_ROWS);
+    ASSERT(currentPosition.y >= 0 && currentPosition.y < NOF_COLUMNS);
+    ASSERT(dataPool.isPelletAt(currentPosition));
+
+    // Get the current score
+    Score currentScore = dataPool.getScore();
+
+    // Increase the score by 1
+    currentScore += 10;
+
+    // Update the score in the DataPool
+    dataPool.setScore(currentScore);
+
+    // Remove the pellet from the DataPool
+    Pellets pellets = dataPool.getPellets();
+    pellets[static_cast<std::size_t>(currentPosition.x)].set(static_cast<std::size_t>(currentPosition.y), false);
+    dataPool.setPellets(pellets);
+
+    ASSERT(!dataPool.isPelletAt(currentPosition));
 }

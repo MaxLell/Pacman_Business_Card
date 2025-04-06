@@ -16,6 +16,9 @@ DataPool::DataPool() {
     // Initialize pacman position to (0, 0)
     pacmanPosition.x = 0;
     pacmanPosition.y = 0;
+
+    // Set the score
+    setScore(100);
 }
 
 // Private destructor
@@ -24,7 +27,7 @@ DataPool::~DataPool() {
 }
 
 // Setter for Walls
-void DataPool::setWalls(const Walls& inputWalls) {
+void DataPool::setWalls(const Walls& inputWalls) {   
     walls = inputWalls;
 }
 
@@ -78,27 +81,6 @@ ctrlInput DataPool::getControlInputs() const {
     return controlInput; // Gib den aktuellen Steuerungseingang zurück
 }
 
-void DataPool::runIntegrityChecks() const {
-    // Pacman's position must not be the same as a wall
-    ASSERT(!isWallAt(pacmanPosition)); 
-
-    // Pacman's position must not be out of bounds
-    ASSERT(pacmanPosition.x >= 0);
-    ASSERT(pacmanPosition.y >= 0);
-    ASSERT(pacmanPosition.x < NOF_ROWS);
-    ASSERT(pacmanPosition.y < NOF_COLUMNS);
-
-
-    // Pacman's position must not the same as a pellet
-
-    // Pacman's position must not be the same as a superpellet
-
-    // Pacman's position must not be the same as a Ghost
-
-    // Control input must be valid
-    ASSERT(controlInput < ctrlInput::LAST_INPUT);
-}
-
 // Setter for Pellets
 void DataPool::setPellets(const Pellets& inputPellets) {
     pellets = inputPellets; 
@@ -107,4 +89,35 @@ void DataPool::setPellets(const Pellets& inputPellets) {
 // Getter for Pellets
 const Pellets& DataPool::getPellets() const {
     return pellets; 
+}
+
+// Setter for Score
+void DataPool::setScore(Score inputScore) {
+    score = inputScore; // Assign the input score to the member variable
+}
+
+// Getter for Score
+Score DataPool::getScore() const {
+    return score; // Return the current score
+}
+
+void DataPool::runIntegrityChecks() const {
+    // Pacman's position must not be out of bounds
+    ASSERT(pacmanPosition.x >= 0);
+    ASSERT(pacmanPosition.y >= 0);
+    ASSERT(pacmanPosition.x < NOF_ROWS);
+    ASSERT(pacmanPosition.y < NOF_COLUMNS);
+
+    // Pacman's position must not be the same as a wall
+    ASSERT(false == isWallAt(pacmanPosition)); 
+
+    // Pacman's position must not the same as a pellet
+    ASSERT(false == isPelletAt(pacmanPosition));
+
+    // Pacman's position must not be the same as a superpellet
+
+    // Pacman's position must not be the same as a Ghost
+
+    // Control input must be valid
+    ASSERT(controlInput < ctrlInput::LAST_INPUT);
 }

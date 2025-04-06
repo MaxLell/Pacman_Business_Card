@@ -4,7 +4,7 @@
 #define NOF_ROWS 31
 #define NOF_COLUMNS 28
 
-static const std::string testMaze[NOF_ROWS] = {
+static const std::string environmentMaze[NOF_ROWS] = {
     "############################",
     "#............##............#",
     "#.####.#####.##.#####.####.#",

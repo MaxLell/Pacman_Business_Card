@@ -4,7 +4,6 @@
 #include "custom_assert_mock.h"
 #include "common_types.h"
 #include "environment_generator.h"
-#include "maze.h"
 
 
 #include "CppUTestExt/MockSupport.h"
@@ -26,16 +25,14 @@ TEST_GROUP(EnvironmentGen_tests){
 TEST(EnvironmentGen_tests, walls_can_be_generated_without_asserts_being_triggered)
 {
     EnvironmentGenerator envGen;
-    Walls walls;
-
-    envGen.loadWallsFromStringArray(testMaze, walls);
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
+    envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
 }
 
 TEST(EnvironmentGen_tests, pellets_can_be_generated_without_asserts_being_triggered)
 {
     EnvironmentGenerator envGen;
-    Pellets pellets;
-
-    envGen.loadPelletsFromStringArray(testMaze, pellets);
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> pellets;
+    envGen.loadMazeElementFromStringArray(MazeElementType::Pellets, pellets);
 }
 

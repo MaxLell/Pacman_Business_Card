@@ -1,4 +1,5 @@
 #include "environment_generator.h"
+#include "custom_assert.h"
 
 EnvironmentGenerator::EnvironmentGenerator(/* args */)
 {
@@ -8,38 +9,18 @@ EnvironmentGenerator::~EnvironmentGenerator()
 {
 }
 
-void EnvironmentGenerator::loadWallsFromStringArray(const std::string maze[NOF_ROWS], Walls &walls)
+void EnvironmentGenerator::loadMazeElementFromStringArray(MazeElementType type, std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> &inoutElement)
 {
-    bool addedBit = false;
-    for (std::size_t i = 0; i < NOF_ROWS; ++i)
-    {
-        std::string row;
-        for (std::size_t j = 0; j < NOF_COLUMNS; ++j)
-        {
-            if (maze[i][j] == '#')
-            {
-                row += '1';
-                addedBit = true;
-            }
-            else
-            {
-                row += '0';
-            }
-        }
-        walls[i] = std::bitset<NOF_COLUMNS>(row); // Assign the converted row to the walls
-    }
-    ASSERT(addedBit);   
-}
+    
 
-void EnvironmentGenerator::loadPelletsFromStringArray(const std::string maze[NOF_ROWS], Pellets &pellets)
-{
     bool addedBit = false;
     for (std::size_t i = 0; i < NOF_ROWS; ++i)
     {
         std::string row;
         for (std::size_t j = 0; j < NOF_COLUMNS; ++j)
         {
-            if (maze[i][j] == '.')
+            if ((type == MazeElementType::Walls && environmentMaze[i][j] == '#') ||
+                (type == MazeElementType::Pellets && environmentMaze[i][j] == '.'))
             {
                 row += '1';
                 addedBit = true;
@@ -49,7 +30,7 @@ void EnvironmentGenerator::loadPelletsFromStringArray(const std::string maze[NOF
                 row += '0';
             }
         }
-        pellets[i] = std::bitset<NOF_COLUMNS>(row); // Assign the converted row to the pellets
+        inoutElement[i] = std::bitset<NOF_COLUMNS>(row);
     }
     ASSERT(addedBit);
 }

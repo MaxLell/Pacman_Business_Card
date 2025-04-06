@@ -1,7 +1,6 @@
 #pragma once
 #include "data_pool.h"
 
-
 class Pacman
 {
 public:
@@ -12,7 +11,7 @@ public:
 
     positionXY move(ctrlInput input, positionXY currentPosition);
 
-    // void eatPellet();
+    void eatPellet(positionXY currentPosition);
 
     // void eatPowerPellet();
 
