@@ -12,6 +12,10 @@ DataPool::DataPool() {
     for (auto& row : walls) {
         row.reset();
     }
+
+    // Initialize pacman position to (0, 0)
+    pacmanPosition.x = 0;
+    pacmanPosition.y = 0;
 }
 
 // Private destructor
@@ -42,7 +46,8 @@ void DataPool::setPacmanPosition(positionXY pos) {
 
     ASSERT(pos.x < NOF_ROWS);
     ASSERT(pos.y < NOF_COLUMNS);
-    pacmanPosition = pos; 
+    pacmanPosition.x = pos.x; 
+    pacmanPosition.y = pos.y; 
 }
 
 // Getter für Pacman-Position
@@ -52,7 +57,9 @@ positionXY DataPool::getPacmanPosition() const {
 
 // Setter for Control Inputs
 void DataPool::setControlInputs(ctrlInput input) {
-    controlInput = input; // Speichere den Steuerungseingang
+    bool validInput = (input == ctrlInput::Up || input == ctrlInput::Down || input == ctrlInput::Left || input == ctrlInput::Right);
+    ASSERT(validInput); 
+    controlInput = input;
 }
 
 // Getter for Control Inputs

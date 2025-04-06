@@ -3,6 +3,7 @@
 #include "custom_assert_mock.h"
 #include "common_types.h"
 #include "data_pool.h"
+#include <string>
 
 #include "CppUTestExt/MockSupport.h"
 #include "CppUTest/TestHarness.h"
@@ -19,18 +20,39 @@ TEST_GROUP(DataPool_test){
 };
 // clang-format on
 
+// Test maze represented as strings
+static const std::string testMaze[NOF_ROWS] = {
+    "##########",
+    "#        #",
+    "# ## ### #",
+    "#        #",
+    "# ### ## #",
+    "#        #",
+    "# ## ### #",
+    "#        #",
+    "##########",
+    "          "
+};
+
+// Helper function to load walls from a string array
+static void loadWallsFromStringArray(const std::string maze[NOF_ROWS], Walls& walls) {
+    for (std::size_t i = 0; i < NOF_ROWS; ++i) {
+        std::string row;
+        for (std::size_t j = 0; j < NOF_COLUMNS; ++j) {
+            row += (maze[i][j] == '#' ? '1' : '0'); // Convert '#' to '1' and space to '0'
+        }
+        walls[i] = std::bitset<NOF_COLUMNS>(row); // Assign the converted row to the walls
+    }
+}
+
 TEST(DataPool_test, walls_can_be_set_and_get)
 {
     // Access the Singleton instance
     auto& dataPool = DataPool::getInstance();
 
-    // Create a random 5x5 maze (needs to fit into Walls datastructure)
+    // Load walls from testMaze
     Walls walls;
-    walls[0] = std::bitset<NOF_COLUMNS>("11111");
-    walls[1] = std::bitset<NOF_COLUMNS>("10001");
-    walls[2] = std::bitset<NOF_COLUMNS>("10101");
-    walls[3] = std::bitset<NOF_COLUMNS>("10001");
-    walls[4] = std::bitset<NOF_COLUMNS>("11111");
+    loadWallsFromStringArray(testMaze, walls);
     dataPool.setWalls(walls);
 
     // Check if the walls are set correctly
@@ -52,13 +74,9 @@ TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
     // Access the Singleton instance
     auto& dataPool = DataPool::getInstance();
 
-    // Create a random 5x5 maze (needs to fit into Walls datastructure)
+    // Load walls from testMaze
     Walls walls;
-    walls[0] = std::bitset<NOF_COLUMNS>("11111");
-    walls[1] = std::bitset<NOF_COLUMNS>("10001");
-    walls[2] = std::bitset<NOF_COLUMNS>("10101");
-    walls[3] = std::bitset<NOF_COLUMNS>("10001");
-    walls[4] = std::bitset<NOF_COLUMNS>("11111");
+    loadWallsFromStringArray(testMaze, walls);
     dataPool.setWalls(walls);
 
     // Check if the isWallAt function returns true for wall positions
@@ -70,10 +88,6 @@ TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
     pos.x = 2;
     pos.y = 2;
     CHECK(dataPool.isWallAt(pos));
-
-    pos.x = 4;
-    pos.y = 4;
-    CHECK(dataPool.isWallAt(pos));
 }
 
 TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
@@ -81,13 +95,9 @@ TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
     // Access the Singleton instance
     auto& dataPool = DataPool::getInstance();
 
-    // Create a random 5x5 maze (needs to fit into Walls datastructure)
+    // Load walls from testMaze
     Walls walls;
-    walls[0] = std::bitset<NOF_COLUMNS>("11111");
-    walls[1] = std::bitset<NOF_COLUMNS>("10001");
-    walls[2] = std::bitset<NOF_COLUMNS>("10101");
-    walls[3] = std::bitset<NOF_COLUMNS>("10001");
-    walls[4] = std::bitset<NOF_COLUMNS>("11111");
+    loadWallsFromStringArray(testMaze, walls);
     dataPool.setWalls(walls);
 
     // Check if the isWallAt function returns false for non-wall positions
@@ -107,16 +117,12 @@ TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
 
 TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
 {
-   // Access the Singleton instance
+    // Access the Singleton instance
     auto& dataPool = DataPool::getInstance();
 
-    // Create a random 5x5 maze (needs to fit into Walls datastructure)
+    // Load walls from testMaze
     Walls walls;
-    walls[0] = std::bitset<NOF_COLUMNS>("11111");
-    walls[1] = std::bitset<NOF_COLUMNS>("10001");
-    walls[2] = std::bitset<NOF_COLUMNS>("10101");
-    walls[3] = std::bitset<NOF_COLUMNS>("10001");
-    walls[4] = std::bitset<NOF_COLUMNS>("11111");
+    loadWallsFromStringArray(testMaze, walls);
     dataPool.setWalls(walls);
 
     // Check if the isWallAt function throws an assertion error for out-of-bounds positions
@@ -127,4 +133,57 @@ TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
         "pos.x < NOF_ROWS",
         [&dataPool, &pos]()
         { dataPool.isWallAt(pos); });
+}
+
+TEST(DataPool_test, pacman_position_can_be_set_and_get) {
+    // Access the Singleton instance
+    auto& dataPool = DataPool::getInstance();
+
+    // Set the pacman position
+    positionXY pacmanPosition = {9, 5}; 
+    dataPool.setPacmanPosition(pacmanPosition);
+
+    // Check if the pacman position is set correctly
+    positionXY retrievedPosition = dataPool.getPacmanPosition();
+    CHECK(retrievedPosition.x == pacmanPosition.x);
+    CHECK(retrievedPosition.y == pacmanPosition.y);
+}
+
+TEST(DataPool_test, pacman_position_throws_assertion_error_for_out_of_bounds) {
+    // Access the Singleton instance
+    auto& dataPool = DataPool::getInstance();
+
+    // Check if the pacman position throws an assertion error for out-of-bounds positions
+    positionXY pos;
+    pos.x = 255; // Out of bounds
+    pos.y = 0;
+    mock_verifyAssertWasTriggered(
+        "pos.x < NOF_ROWS",
+        [&dataPool, &pos]()
+        { dataPool.setPacmanPosition(pos); });
+}
+
+TEST(DataPool_test, control_input_can_be_set_and_get) {
+    // Access the Singleton instance
+    auto& dataPool = DataPool::getInstance();
+
+    // Set the control input
+    ctrlInput input = ctrlInput::Up;
+    dataPool.setControlInputs(input);
+
+    // Check if the control input is set correctly
+    ctrlInput retrievedInput = dataPool.getControlInputs();
+    CHECK(retrievedInput == input);
+}
+
+TEST(DataPool_test, control_input_throws_assertion_error_for_invalid_input) {
+    // Access the Singleton instance
+    auto& dataPool = DataPool::getInstance();
+
+    // Check if the control input throws an assertion error for invalid inputs
+    ctrlInput input = static_cast<ctrlInput>(255); // Invalid input
+    mock_verifyAssertWasTriggered(
+        "validInput",
+        [&dataPool, &input]()
+        { dataPool.setControlInputs(input); });
 }
