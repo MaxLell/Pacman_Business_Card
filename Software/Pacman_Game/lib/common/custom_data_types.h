@@ -9,6 +9,6 @@ enum class ctrlInput {
 };
 
 struct positionXY {
-    u8 x;
-    u8 y;
+    s8 x;
+    s8 y;
 };

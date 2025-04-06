@@ -6,8 +6,8 @@
 #include "custom_data_types.h"
 
 
-#define NOF_ROWS 10
-#define NOF_COLUMNS 10
+#define NOF_ROWS 31
+#define NOF_COLUMNS 28
 
 using Walls = std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS>;
 

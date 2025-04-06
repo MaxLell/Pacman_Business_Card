@@ -35,17 +35,21 @@ const Walls& DataPool::getWalls() const {
 
 // Check if a wall exists at a specific position
 bool DataPool::isWallAt(positionXY pos) const {
-    // Ensure the position is within bounds
+    ASSERT(pos.x >= 0);
+    ASSERT(pos.y >= 0);
     ASSERT(pos.x < NOF_ROWS); 
     ASSERT(pos.y < NOF_COLUMNS);
-    return walls[pos.x][pos.y];
+
+    return walls[static_cast<std::size_t>(pos.x)][static_cast<std::size_t>(pos.y)];
 }
 
 // Setter für Pacman-Position
 void DataPool::setPacmanPosition(positionXY pos) {
-
+    ASSERT(pos.x >= 0);
+    ASSERT(pos.y >= 0);
     ASSERT(pos.x < NOF_ROWS);
     ASSERT(pos.y < NOF_COLUMNS);
+
     pacmanPosition.x = pos.x; 
     pacmanPosition.y = pos.y; 
 }
@@ -70,6 +74,13 @@ ctrlInput DataPool::getControlInputs() const {
 void DataPool::runIntegrityChecks() const {
     // Pacman's position must not be the same as a wall
     ASSERT(!isWallAt(pacmanPosition)); 
+
+    // Pacman's position must not be out of bounds
+    ASSERT(pacmanPosition.x >= 0);
+    ASSERT(pacmanPosition.y >= 0);
+    ASSERT(pacmanPosition.x < NOF_ROWS);
+    ASSERT(pacmanPosition.y < NOF_COLUMNS);
+
 
     // Pacman's position must not the same as a pellet
 

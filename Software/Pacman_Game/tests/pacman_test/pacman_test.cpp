@@ -22,16 +22,37 @@ TEST_GROUP(pacman_tests){
 // clang-format on
 
 static const std::string testMaze[NOF_ROWS] = {
-    "##########",
-    "#        #",
-    "# ## ### #",
-    "#        #",
-    "# ### ## #",
-    "#        #",
-    "# ## ### #",
-    "#        #",
-    "##########",
-    "          "
+    "############################",
+    "#............##............#",
+    "#.####.#####.##.#####.####.#",
+    "#.####.#####.##.#####.####.#",
+    "#.####.#####.##.#####.####.#",
+    "#..........................#",
+    "#.####.##.########.##.####.#",
+    "#.####.##.########.##.####.#",
+    "#......##....##....##......#",
+    "######.##### ## #####.######",
+    "     #.##### ## #####.#     ",
+    "     #.##          ##.#     ",
+    "     #.## ###--### ##.#     ",
+    "######.## #      # ##.######",
+    "      .   #      #   .      ",
+    "######.## #      # ##.######",
+    "     #.## ######## ##.#     ",
+    "     #.##          ##.#     ",
+    "     #.## ######## ##.#     ",
+    "######.## ######## ##.######",
+    "#............##............#",
+    "#.####.#####.##.#####.####.#",
+    "#.####.#####.##.#####.####.#",
+    "#...##................##...#",
+    "###.##.##.########.##.##.###",
+    "###.##.##.########.##.##.###",
+    "#......##....##....##......#",
+    "#.##########.##.##########.#",
+    "#.##########.##.##########.#",
+    "#..........................#",
+    "############################"
 };
 
 void loadWallsFromStringArray(const std::string maze[NOF_ROWS], Walls& walls) {
@@ -100,17 +121,16 @@ TEST(pacman_tests, moving_pacman_through_the_maze_does_not_trigger_assert) {
     dataPool.setWalls(walls);
     dataPool.setPacmanPosition({1, 1});
 
-    const int nofIterations = 100;
+    const int nofIterations = 100000;
 
     for (int i = 0; i < nofIterations; ++i) {
         ctrlInput controlInput = static_cast<ctrlInput>(rand() % static_cast<int>(ctrlInput::LAST_INPUT));
         dataPool.setControlInputs(controlInput);
 
-        // initialize pacman with said datapool
         Pacman pacman(dataPool);
         pacman.update();
 
         // run integrity check - no asserts must be triggered
-        dataPool.runIntegrityChecks();
+        dataPool.runIntegrityChecks();       
     }
 }

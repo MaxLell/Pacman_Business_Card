@@ -13,30 +13,6 @@ Pacman::~Pacman()
 
 void Pacman::update()
 {
-    /**
-     * How it shall look like:
-     */
-
-    /*
-    void Pacman::update() {
-        controlInput = getControlInput();
-
-        updatedPosition = move(controlInput, currentPosition);
-
-        if (isWallAt(updatedPosition)) {
-            // Falls Pacman gegen eine Wand läuft, Bewegung rückgängig machen
-            updatedPosition = undoMove(currentPosition);
-        }
-
-        
-
-        if (isSuperPelletAt(updatedPosition)) {
-            eatPowerPellet();
-        }
-
-        
-    }    */
-
     ctrlInput controlInput = dataPool.getControlInputs();
 
     positionXY currentPosition = dataPool.getPacmanPosition();
@@ -84,19 +60,37 @@ positionXY Pacman::move(ctrlInput input, positionXY currentPosition)
     switch (input)
     {
     case ctrlInput::Up:
-        newPosition.y--;
+        newPosition.y -= 1;
+        if (newPosition.y < 0)
+        {
+            newPosition.y = NOF_COLUMNS-1;
+        }
         break;
     case ctrlInput::Down:
-        newPosition.y++;
+        newPosition.y += 1;
+        if (newPosition.y >= NOF_COLUMNS)
+        {
+            newPosition.y = 0;
+        }
         break;
     case ctrlInput::Left:
-        newPosition.x--;
+        newPosition.x -= 1;
+        if (newPosition.x < 0)
+        {
+            newPosition.x = NOF_ROWS-1;
+        }
         break;
     case ctrlInput::Right:
-        newPosition.x++;
+        newPosition.x += 1;
+        if (newPosition.x >= NOF_ROWS)
+        {
+            newPosition.x = 0;
+        }
         break;
     default:
-        break; // Keine Bewegung
+        // Invalid input, do nothing or handle error
+        break;
     }
+
     return newPosition;
 }

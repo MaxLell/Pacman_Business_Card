@@ -22,16 +22,37 @@ TEST_GROUP(DataPool_test){
 
 // Test maze represented as strings
 static const std::string testMaze[NOF_ROWS] = {
-    "##########",
-    "#        #",
-    "# ## ### #",
-    "#        #",
-    "# ### ## #",
-    "#        #",
-    "# ## ### #",
-    "#        #",
-    "##########",
-    "          "
+    "############################",
+    "#............##............#",
+    "#.####.#####.##.#####.####.#",
+    "#.####.#####.##.#####.####.#",
+    "#.####.#####.##.#####.####.#",
+    "#..........................#",
+    "#.####.##.########.##.####.#",
+    "#.####.##.########.##.####.#",
+    "#......##....##....##......#",
+    "######.##### ## #####.######",
+    "     #.##### ## #####.#     ",
+    "     #.##          ##.#     ",
+    "     #.## ###--### ##.#     ",
+    "######.## #      # ##.######",
+    "      .   #      #   .      ",
+    "######.## #      # ##.######",
+    "     #.## ######## ##.#     ",
+    "     #.##          ##.#     ",
+    "     #.## ######## ##.#     ",
+    "######.## ######## ##.######",
+    "#............##............#",
+    "#.####.#####.##.#####.####.#",
+    "#.####.#####.##.#####.####.#",
+    "#...##................##...#",
+    "###.##.##.########.##.##.###",
+    "###.##.##.########.##.##.###",
+    "#......##....##....##......#",
+    "#.##########.##.##########.#",
+    "#.##########.##.##########.#",
+    "#..........................#",
+    "############################"
 };
 
 // Helper function to load walls from a string array
@@ -110,7 +131,7 @@ TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
     pos.y = 1;
     CHECK(!dataPool.isWallAt(pos));
 
-    pos.x = 3;
+    pos.x = 1;
     pos.y = 3;
     CHECK(!dataPool.isWallAt(pos));
 }
@@ -127,10 +148,10 @@ TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
 
     // Check if the isWallAt function throws an assertion error for out-of-bounds positions
     positionXY pos;
-    pos.x = 255; // Out of bounds
+    pos.x = -10; // Out of bounds
     pos.y = 0;
     mock_verifyAssertWasTriggered(
-        "pos.x < NOF_ROWS",
+        "pos.x >= 0",
         [&dataPool, &pos]()
         { dataPool.isWallAt(pos); });
 }
@@ -155,10 +176,10 @@ TEST(DataPool_test, pacman_position_throws_assertion_error_for_out_of_bounds) {
 
     // Check if the pacman position throws an assertion error for out-of-bounds positions
     positionXY pos;
-    pos.x = 255; // Out of bounds
+    pos.x = -10; // Out of bounds
     pos.y = 0;
     mock_verifyAssertWasTriggered(
-        "pos.x < NOF_ROWS",
+        "pos.x >= 0",
         [&dataPool, &pos]()
         { dataPool.setPacmanPosition(pos); });
 }
@@ -187,3 +208,4 @@ TEST(DataPool_test, control_input_throws_assertion_error_for_invalid_input) {
         [&dataPool, &input]()
         { dataPool.setControlInputs(input); });
 }
+
