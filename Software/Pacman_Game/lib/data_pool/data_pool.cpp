@@ -57,7 +57,7 @@ positionXY DataPool::getPacmanPosition() const {
 
 // Setter for Control Inputs
 void DataPool::setControlInputs(ctrlInput input) {
-    bool validInput = (input == ctrlInput::Up || input == ctrlInput::Down || input == ctrlInput::Left || input == ctrlInput::Right);
+    bool validInput = input < ctrlInput::LAST_INPUT;
     ASSERT(validInput); 
     controlInput = input;
 }
@@ -76,4 +76,7 @@ void DataPool::runIntegrityChecks() const {
     // Pacman's position must not be the same as a superpellet
 
     // Pacman's position must not be the same as a Ghost
+
+    // Control input must be valid
+    ASSERT(controlInput < ctrlInput::LAST_INPUT);
 }

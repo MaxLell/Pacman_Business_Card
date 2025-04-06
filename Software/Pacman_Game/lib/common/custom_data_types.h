@@ -5,6 +5,7 @@ enum class ctrlInput {
     Down,
     Left,
     Right,
+    LAST_INPUT
 };
 
 struct positionXY {
