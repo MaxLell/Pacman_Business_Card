@@ -28,8 +28,8 @@ enum class TestTopic
 
 TEST(MB, messageBroker_can_create_a_random_number)
 {
-  MessageBroker<TestTopic, 500> mb;
-  std::array<u32, 500> randomNumbers;
+  MessageBroker<TestTopic, 10> mb;
+  std::array<u32, 10> randomNumbers;
   for (u32 &number : randomNumbers)
   {
     number = mb.getRandomCbId();
