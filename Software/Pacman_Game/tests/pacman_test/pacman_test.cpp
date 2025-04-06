@@ -5,6 +5,8 @@
 #include "topic_definitions.h"
 #include "pacman.h"
 #include "data_pool.h"
+#include "maze.h"
+#include "environment_generator.h"
 
 #include "CppUTestExt/MockSupport.h"
 #include "CppUTest/TestHarness.h"
@@ -21,49 +23,7 @@ TEST_GROUP(pacman_tests){
 };
 // clang-format on
 
-static const std::string testMaze[NOF_ROWS] = {
-    "############################",
-    "#............##............#",
-    "#.####.#####.##.#####.####.#",
-    "#.####.#####.##.#####.####.#",
-    "#.####.#####.##.#####.####.#",
-    "#..........................#",
-    "#.####.##.########.##.####.#",
-    "#.####.##.########.##.####.#",
-    "#......##....##....##......#",
-    "######.##### ## #####.######",
-    "######.##### ## #####.######",
-    "######.##          ##.######",
-    "######.## ###--### ##.######",
-    "######.## #      # ##.######",
-    "      .   #      #   .      ",
-    "######.## #      # ##.######",
-    "######.## ######## ##.######",
-    "######.##          ##.######",
-    "######.## ######## ##.######",
-    "######.## ######## ##.######",
-    "#............##............#",
-    "#.####.#####.##.#####.####.#",
-    "#.####.#####.##.#####.####.#",
-    "#...##................##...#",
-    "###.##.##.########.##.##.###",
-    "###.##.##.########.##.##.###",
-    "#......##....##....##......#",
-    "#.##########.##.##########.#",
-    "#.##########.##.##########.#",
-    "#..........................#",
-    "############################"
-};
 
-void loadWallsFromStringArray(const std::string maze[NOF_ROWS], Walls& walls) {
-    for (std::size_t i = 0; i < NOF_ROWS; ++i) {
-        std::string row;
-        for (std::size_t j = 0; j < NOF_COLUMNS; ++j) {
-            row += (maze[i][j] == '#' ? '1' : '0'); // Convert '#' to '1' and space to '0'
-        }
-        walls[i] = std::bitset<NOF_COLUMNS>(row); // Assign the converted row to the walls
-    }
-}
 
 TEST(pacman_tests, pacman_can_change_coordinates_with_move_function) {
     // set up the datapool
@@ -89,7 +49,8 @@ TEST(pacman_tests, can_move_around_in_a_maze)
 {
     Walls walls;
     // Generate a maze with 10 columns and 10 rows
-    loadWallsFromStringArray(testMaze, walls);
+    EnvironmentGenerator envGen;
+    envGen.loadWallsFromStringArray(testMaze, walls);
 
     // Set the walls in the DataPool
     DataPool& dataPool = DataPool::getInstance();
@@ -116,7 +77,8 @@ TEST(pacman_tests, moving_pacman_through_the_maze_does_not_trigger_assert) {
     // At each iteration run the integrity check -> which must not be triggered
 
     Walls walls;
-    loadWallsFromStringArray(testMaze, walls);
+    EnvironmentGenerator envGen;
+    envGen.loadWallsFromStringArray(testMaze, walls);
     DataPool& dataPool = DataPool::getInstance();
     dataPool.setWalls(walls);
     dataPool.setPacmanPosition({1, 1});

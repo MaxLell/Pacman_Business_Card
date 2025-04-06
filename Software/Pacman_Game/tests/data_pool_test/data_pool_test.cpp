@@ -4,6 +4,8 @@
 #include "common_types.h"
 #include "data_pool.h"
 #include <string>
+#include "environment_generator.h"
+#include "maze.h"
 
 #include "CppUTestExt/MockSupport.h"
 #include "CppUTest/TestHarness.h"
@@ -20,64 +22,19 @@ TEST_GROUP(DataPool_test){
 };
 // clang-format on
 
-// Test maze represented as strings
-static const std::string testMaze[NOF_ROWS] = {
-    "############################",
-    "#............##............#",
-    "#.####.#####.##.#####.####.#",
-    "#.####.#####.##.#####.####.#",
-    "#.####.#####.##.#####.####.#",
-    "#..........................#",
-    "#.####.##.########.##.####.#",
-    "#.####.##.########.##.####.#",
-    "#......##....##....##......#",
-    "######.##### ## #####.######",
-    "     #.##### ## #####.#     ",
-    "     #.##          ##.#     ",
-    "     #.## ###--### ##.#     ",
-    "######.## #      # ##.######",
-    "      .   #      #   .      ",
-    "######.## #      # ##.######",
-    "     #.## ######## ##.#     ",
-    "     #.##          ##.#     ",
-    "     #.## ######## ##.#     ",
-    "######.## ######## ##.######",
-    "#............##............#",
-    "#.####.#####.##.#####.####.#",
-    "#.####.#####.##.#####.####.#",
-    "#...##................##...#",
-    "###.##.##.########.##.##.###",
-    "###.##.##.########.##.##.###",
-    "#......##....##....##......#",
-    "#.##########.##.##########.#",
-    "#.##########.##.##########.#",
-    "#..........................#",
-    "############################"
-};
-
-// Helper function to load walls from a string array
-static void loadWallsFromStringArray(const std::string maze[NOF_ROWS], Walls& walls) {
-    for (std::size_t i = 0; i < NOF_ROWS; ++i) {
-        std::string row;
-        for (std::size_t j = 0; j < NOF_COLUMNS; ++j) {
-            row += (maze[i][j] == '#' ? '1' : '0'); // Convert '#' to '1' and space to '0'
-        }
-        walls[i] = std::bitset<NOF_COLUMNS>(row); // Assign the converted row to the walls
-    }
-}
-
 TEST(DataPool_test, walls_can_be_set_and_get)
 {
     // Access the Singleton instance
-    auto& dataPool = DataPool::getInstance();
+    auto &dataPool = DataPool::getInstance();
 
     // Load walls from testMaze
     Walls walls;
-    loadWallsFromStringArray(testMaze, walls);
+    EnvironmentGenerator envGen;
+    envGen.loadWallsFromStringArray(testMaze, walls);
     dataPool.setWalls(walls);
 
     // Check if the walls are set correctly
-    const Walls& retrievedWalls = dataPool.getWalls();
+    const Walls &retrievedWalls = dataPool.getWalls();
     for (std::size_t i = 0; i < NOF_ROWS; ++i)
     {
         for (std::size_t j = 0; j < NOF_COLUMNS; ++j)
@@ -90,14 +47,39 @@ TEST(DataPool_test, walls_can_be_set_and_get)
     }
 }
 
+TEST(DataPool_test, pellets_can_be_set_and_get) {
+    // Access the Singleton instance
+    auto &dataPool = DataPool::getInstance();
+
+    // Load pellets from testMaze
+    Pellets pellets;
+    EnvironmentGenerator envGen;
+    envGen.loadPelletsFromStringArray(testMaze, pellets);
+    dataPool.setPellets(pellets);
+
+    // Check if the pellets are set correctly
+    const Pellets &retrievedPellets = dataPool.getPellets();
+    for (std::size_t i = 0; i < NOF_ROWS; ++i)
+    {
+        for (std::size_t j = 0; j < NOF_COLUMNS; ++j)
+        {
+            if (pellets[i][j] != retrievedPellets[i][j])
+            {
+                FAIL("Pellets are not set correctly");
+            }
+        }
+    }
+}
+
 TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
 {
     // Access the Singleton instance
-    auto& dataPool = DataPool::getInstance();
+    auto &dataPool = DataPool::getInstance();
 
     // Load walls from testMaze
     Walls walls;
-    loadWallsFromStringArray(testMaze, walls);
+    EnvironmentGenerator envGen;
+    envGen.loadWallsFromStringArray(testMaze, walls);
     dataPool.setWalls(walls);
 
     // Check if the isWallAt function returns true for wall positions
@@ -114,11 +96,12 @@ TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
 TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
 {
     // Access the Singleton instance
-    auto& dataPool = DataPool::getInstance();
+    auto &dataPool = DataPool::getInstance();
 
     // Load walls from testMaze
     Walls walls;
-    loadWallsFromStringArray(testMaze, walls);
+    EnvironmentGenerator envGen;
+    envGen.loadWallsFromStringArray(testMaze, walls);
     dataPool.setWalls(walls);
 
     // Check if the isWallAt function returns false for non-wall positions
@@ -139,11 +122,12 @@ TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
 TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
 {
     // Access the Singleton instance
-    auto& dataPool = DataPool::getInstance();
+    auto &dataPool = DataPool::getInstance();
 
     // Load walls from testMaze
     Walls walls;
-    loadWallsFromStringArray(testMaze, walls);
+    EnvironmentGenerator envGen;
+    envGen.loadWallsFromStringArray(testMaze, walls);
     dataPool.setWalls(walls);
 
     // Check if the isWallAt function throws an assertion error for out-of-bounds positions
@@ -156,12 +140,13 @@ TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
         { dataPool.isWallAt(pos); });
 }
 
-TEST(DataPool_test, pacman_position_can_be_set_and_get) {
+TEST(DataPool_test, pacman_position_can_be_set_and_get)
+{
     // Access the Singleton instance
-    auto& dataPool = DataPool::getInstance();
+    auto &dataPool = DataPool::getInstance();
 
     // Set the pacman position
-    positionXY pacmanPosition = {9, 5}; 
+    positionXY pacmanPosition = {9, 5};
     dataPool.setPacmanPosition(pacmanPosition);
 
     // Check if the pacman position is set correctly
@@ -170,9 +155,10 @@ TEST(DataPool_test, pacman_position_can_be_set_and_get) {
     CHECK(retrievedPosition.y == pacmanPosition.y);
 }
 
-TEST(DataPool_test, pacman_position_throws_assertion_error_for_out_of_bounds) {
+TEST(DataPool_test, pacman_position_throws_assertion_error_for_out_of_bounds)
+{
     // Access the Singleton instance
-    auto& dataPool = DataPool::getInstance();
+    auto &dataPool = DataPool::getInstance();
 
     // Check if the pacman position throws an assertion error for out-of-bounds positions
     positionXY pos;
@@ -184,9 +170,10 @@ TEST(DataPool_test, pacman_position_throws_assertion_error_for_out_of_bounds) {
         { dataPool.setPacmanPosition(pos); });
 }
 
-TEST(DataPool_test, control_input_can_be_set_and_get) {
+TEST(DataPool_test, control_input_can_be_set_and_get)
+{
     // Access the Singleton instance
-    auto& dataPool = DataPool::getInstance();
+    auto &dataPool = DataPool::getInstance();
 
     // Set the control input
     ctrlInput input = ctrlInput::Up;
@@ -197,9 +184,10 @@ TEST(DataPool_test, control_input_can_be_set_and_get) {
     CHECK(retrievedInput == input);
 }
 
-TEST(DataPool_test, control_input_throws_assertion_error_for_invalid_input) {
+TEST(DataPool_test, control_input_throws_assertion_error_for_invalid_input)
+{
     // Access the Singleton instance
-    auto& dataPool = DataPool::getInstance();
+    auto &dataPool = DataPool::getInstance();
 
     // Check if the control input throws an assertion error for invalid inputs
     ctrlInput input = static_cast<ctrlInput>(255); // Invalid input
@@ -208,4 +196,5 @@ TEST(DataPool_test, control_input_throws_assertion_error_for_invalid_input) {
         [&dataPool, &input]()
         { dataPool.setControlInputs(input); });
 }
+
 

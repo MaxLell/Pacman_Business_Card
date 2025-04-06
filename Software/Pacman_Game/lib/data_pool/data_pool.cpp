@@ -39,8 +39,15 @@ bool DataPool::isWallAt(positionXY pos) const {
     ASSERT(pos.y >= 0);
     ASSERT(pos.x < NOF_ROWS); 
     ASSERT(pos.y < NOF_COLUMNS);
-
     return walls[static_cast<std::size_t>(pos.x)][static_cast<std::size_t>(pos.y)];
+}
+
+bool DataPool::isPelletAt(positionXY pos) const {
+    ASSERT(pos.x >= 0);
+    ASSERT(pos.y >= 0);
+    ASSERT(pos.x < NOF_ROWS);
+    ASSERT(pos.y < NOF_COLUMNS);
+    return pellets[static_cast<std::size_t>(pos.x)][static_cast<std::size_t>(pos.y)];
 }
 
 // Setter für Pacman-Position
@@ -90,4 +97,14 @@ void DataPool::runIntegrityChecks() const {
 
     // Control input must be valid
     ASSERT(controlInput < ctrlInput::LAST_INPUT);
+}
+
+// Setter for Pellets
+void DataPool::setPellets(const Pellets& inputPellets) {
+    pellets = inputPellets; 
+}
+
+// Getter for Pellets
+const Pellets& DataPool::getPellets() const {
+    return pellets; 
 }
