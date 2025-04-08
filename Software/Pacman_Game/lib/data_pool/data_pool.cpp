@@ -37,7 +37,7 @@ const walls_t& DataPool::getWalls() const {
 }
 
 // Check if a wall exists at a specific position
-bool DataPool::isWallAt(positionXY pos) const {
+bool DataPool::isWallAt(positionXY_t pos) const {
     ASSERT(pos.x >= 0);
     ASSERT(pos.y >= 0);
     ASSERT(pos.x < NOF_ROWS); 
@@ -45,7 +45,7 @@ bool DataPool::isWallAt(positionXY pos) const {
     return walls[static_cast<std::size_t>(pos.x)][static_cast<std::size_t>(pos.y)];
 }
 
-bool DataPool::isPelletAt(positionXY pos) const {
+bool DataPool::isPelletAt(positionXY_t pos) const {
     ASSERT(pos.x >= 0);
     ASSERT(pos.y >= 0);
     ASSERT(pos.x < NOF_ROWS);
@@ -54,7 +54,7 @@ bool DataPool::isPelletAt(positionXY pos) const {
 }
 
 // Setter für Pacman-Position
-void DataPool::setPacmanPosition(positionXY pos) {
+void DataPool::setPacmanPosition(positionXY_t pos) {
     ASSERT(pos.x >= 0);
     ASSERT(pos.y >= 0);
     ASSERT(pos.x < NOF_ROWS);
@@ -65,7 +65,7 @@ void DataPool::setPacmanPosition(positionXY pos) {
 }
 
 // Getter für Pacman-Position
-positionXY DataPool::getPacmanPosition() const {
+positionXY_t DataPool::getPacmanPosition() const {
     return pacmanPosition; 
 }
 

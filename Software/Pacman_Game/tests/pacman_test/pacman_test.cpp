@@ -28,7 +28,7 @@ TEST(pacman_tests, pacman_can_change_coordinates_with_move_function)
 {
     // Set up the DataPool
     DataPool &dataPool = DataPool::getInstance();
-    positionXY pacmanPosition = {1, 1}; // Initial position
+    positionXY_t pacmanPosition = {1, 1}; // Initial position
     dataPool.setPacmanPosition(pacmanPosition);
 
     // Set up the control input
@@ -38,7 +38,7 @@ TEST(pacman_tests, pacman_can_change_coordinates_with_move_function)
     Pacman pacman(dataPool);
 
     // Call the move function
-    positionXY newPosition = pacman.move(controlInput, pacmanPosition);
+    positionXY_t newPosition = pacman.move(controlInput, pacmanPosition);
 
     // Check if the new position is correct
     CHECK_EQUAL(2, newPosition.x);
@@ -66,7 +66,7 @@ TEST(pacman_tests, can_move_around_in_a_maze)
     Pacman pacman(dataPool);
     pacman.update();
 
-    positionXY updatedPosition = dataPool.getPacmanPosition();
+    positionXY_t updatedPosition = dataPool.getPacmanPosition();
 
     CHECK(updatedPosition.x == 2);
     CHECK(updatedPosition.y == 1);
@@ -103,7 +103,7 @@ TEST(pacman_tests, moving_pacman_through_the_maze_does_not_trigger_assert)
 TEST(pacman_tests, when_pacman_eats_a_pellet_the_score_is_increased)
 {
     DataPool &dataPool = DataPool::getInstance();
-    positionXY pacmanPosition = {1, 1}; // Position where there is also a pellet
+    positionXY_t pacmanPosition = {1, 1}; // Position where there is also a pellet
     dataPool.setPacmanPosition(pacmanPosition);
 
     // Load pellets using the refactored function
@@ -138,7 +138,7 @@ TEST(pacman_tests, pacman_can_find_all_the_pellets_in_the_maze)
 
     // create pacman
     Pacman pacman(dataPool);
-    positionXY pacmanPosition = {13, 23}; 
+    positionXY_t pacmanPosition = {13, 23}; 
     dataPool.setPacmanPosition(pacmanPosition);
 
     // have pacman move around in the maze eventually eating all the pellets

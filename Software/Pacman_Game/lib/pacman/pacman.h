@@ -9,9 +9,9 @@ public:
 
     void update();
 
-    positionXY move(ctrlInput input, positionXY currentPosition);
+    positionXY_t move(ctrlInput input, positionXY_t currentPosition);
 
-    void eatPellet(positionXY currentPosition);
+    void eatPellet(positionXY_t currentPosition);
 
     // void eatPowerPellet();
 

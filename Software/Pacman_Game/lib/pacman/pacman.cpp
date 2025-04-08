@@ -15,8 +15,8 @@ void Pacman::update()
 {
     ctrlInput controlInput = dataPool.getControlInputs();
 
-    positionXY currentPosition = dataPool.getPacmanPosition();
-    positionXY updatedPosition = move(controlInput, currentPosition);
+    positionXY_t currentPosition = dataPool.getPacmanPosition();
+    positionXY_t updatedPosition = move(controlInput, currentPosition);
 
     if (dataPool.isWallAt(updatedPosition))
     {
@@ -52,9 +52,9 @@ void Pacman::update()
     dataPool.runIntegrityChecks();
 }
 
-positionXY Pacman::move(ctrlInput input, positionXY currentPosition)
+positionXY_t Pacman::move(ctrlInput input, positionXY_t currentPosition)
 {
-    positionXY newPosition = currentPosition;
+    positionXY_t newPosition = currentPosition;
 
     switch (input)
     {
@@ -94,7 +94,7 @@ positionXY Pacman::move(ctrlInput input, positionXY currentPosition)
     return newPosition;
 }
 
-void Pacman::eatPellet(positionXY currentPosition)
+void Pacman::eatPellet(positionXY_t currentPosition)
 {
     ASSERT(currentPosition.x >= 0 && currentPosition.x < NOF_ROWS);
     ASSERT(currentPosition.y >= 0 && currentPosition.y < NOF_COLUMNS);

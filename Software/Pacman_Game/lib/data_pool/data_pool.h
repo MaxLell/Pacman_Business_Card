@@ -32,12 +32,12 @@ public:
     void setControlInputs(ctrlInput input);
     ctrlInput getControlInputs() const;
 
-    void setPacmanPosition(positionXY pos);
-    positionXY getPacmanPosition() const;
+    void setPacmanPosition(positionXY_t pos);
+    positionXY_t getPacmanPosition() const;
 
     // Check if a wall exists at a specific position
-    bool isWallAt(positionXY pos) const;
-    bool isPelletAt(positionXY pos) const;
+    bool isWallAt(positionXY_t pos) const;
+    bool isPelletAt(positionXY_t pos) const;
 
     
     // bool isGhostAt(ghostType ghost, positionXY);
@@ -53,6 +53,6 @@ private:
     pellets_t pellets;
     
     ctrlInput controlInput;
-    positionXY pacmanPosition;
+    positionXY_t pacmanPosition;
     score_t score;
 };

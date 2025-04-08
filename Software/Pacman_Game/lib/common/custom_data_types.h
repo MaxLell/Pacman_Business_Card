@@ -9,7 +9,7 @@ enum class ctrlInput {
 };
 
 // x -> y
-struct positionXY {
+struct positionXY_t {
     s8 x;
     s8 y;
 };

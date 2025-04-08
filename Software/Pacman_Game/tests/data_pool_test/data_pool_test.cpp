@@ -12,11 +12,13 @@
 // clang-format off
 TEST_GROUP(DataPool_test){
     void setup(){
-
+        mock().checkExpectations();
+        mock().clear();
     }
     void teardown()
     {
-        // nothing much happening here
+        mock().checkExpectations();
+        mock().clear();
     }
 };
 // clang-format on
@@ -83,7 +85,7 @@ TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
     dataPool.setWalls(static_cast<walls_t>(walls));
 
     // Check if the isWallAt function returns true for wall positions
-    positionXY pos;
+    positionXY_t pos;
     pos.x = 0;
     pos.y = 0;
     CHECK(dataPool.isWallAt(pos));
@@ -105,7 +107,7 @@ TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
     dataPool.setWalls(static_cast<walls_t>(walls));
 
     // Check if the isWallAt function returns false for non-wall positions
-    positionXY pos;
+    positionXY_t pos;
     pos.x = 1;
     pos.y = 2;
     CHECK(!dataPool.isWallAt(pos));
@@ -131,7 +133,7 @@ TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
     dataPool.setWalls(static_cast<walls_t>(walls));
 
     // Check if the isWallAt function throws an assertion error for out-of-bounds positions
-    positionXY pos;
+    positionXY_t pos;
     pos.x = -10; // Out of bounds
     pos.y = 0;
     mock_verifyAssertWasTriggered(
@@ -146,11 +148,11 @@ TEST(DataPool_test, pacman_position_can_be_set_and_get)
     auto &dataPool = DataPool::getInstance();
 
     // Set the pacman position
-    positionXY pacmanPosition = {9, 5};
+    positionXY_t pacmanPosition = {9, 5};
     dataPool.setPacmanPosition(pacmanPosition);
 
     // Check if the pacman position is set correctly
-    positionXY retrievedPosition = dataPool.getPacmanPosition();
+    positionXY_t retrievedPosition = dataPool.getPacmanPosition();
     CHECK(retrievedPosition.x == pacmanPosition.x);
     CHECK(retrievedPosition.y == pacmanPosition.y);
 }
@@ -161,7 +163,7 @@ TEST(DataPool_test, pacman_position_throws_assertion_error_for_out_of_bounds)
     auto &dataPool = DataPool::getInstance();
 
     // Check if the pacman position throws an assertion error for out-of-bounds positions
-    positionXY pos;
+    positionXY_t pos;
     pos.x = -10; // Out of bounds
     pos.y = 0;
     mock_verifyAssertWasTriggered(
