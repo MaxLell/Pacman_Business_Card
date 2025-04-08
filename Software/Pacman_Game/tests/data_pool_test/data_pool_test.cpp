@@ -30,10 +30,10 @@ TEST(DataPool_test, walls_can_be_set_and_get)
     std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
     envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
-    dataPool.setWalls(static_cast<Walls>(walls));
+    dataPool.setWalls(static_cast<walls_t>(walls));
 
     // Check if the walls are set correctly
-    const Walls &retrievedWalls = dataPool.getWalls();
+    const walls_t &retrievedWalls = dataPool.getWalls();
     for (std::size_t i = 0; i < NOF_ROWS; ++i)
     {
         for (std::size_t j = 0; j < NOF_COLUMNS; ++j)
@@ -55,10 +55,10 @@ TEST(DataPool_test, pellets_can_be_set_and_get)
     std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> pellets;
     EnvironmentGenerator envGen;
     envGen.loadMazeElementFromStringArray(MazeElementType::Pellets, pellets);
-    dataPool.setPellets(static_cast<Pellets>(pellets));
+    dataPool.setPellets(static_cast<pellets_t>(pellets));
 
     // Check if the pellets are set correctly
-    const Pellets &retrievedPellets = dataPool.getPellets();
+    const pellets_t &retrievedPellets = dataPool.getPellets();
     for (std::size_t i = 0; i < NOF_ROWS; ++i)
     {
         for (std::size_t j = 0; j < NOF_COLUMNS; ++j)
@@ -80,7 +80,7 @@ TEST(DataPool_test, isWallAt_returns_true_for_wall_positions)
     std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
     envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
-    dataPool.setWalls(static_cast<Walls>(walls));
+    dataPool.setWalls(static_cast<walls_t>(walls));
 
     // Check if the isWallAt function returns true for wall positions
     positionXY pos;
@@ -102,7 +102,7 @@ TEST(DataPool_test, isWallAt_returns_false_for_non_wall_positions)
     std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
     envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
-    dataPool.setWalls(static_cast<Walls>(walls));
+    dataPool.setWalls(static_cast<walls_t>(walls));
 
     // Check if the isWallAt function returns false for non-wall positions
     positionXY pos;
@@ -128,7 +128,7 @@ TEST(DataPool_test, isWallAt_throws_assertion_error_for_out_of_bounds)
     std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
     EnvironmentGenerator envGen;
     envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
-    dataPool.setWalls(static_cast<Walls>(walls));
+    dataPool.setWalls(static_cast<walls_t>(walls));
 
     // Check if the isWallAt function throws an assertion error for out-of-bounds positions
     positionXY pos;

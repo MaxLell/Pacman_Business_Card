@@ -6,9 +6,9 @@
 #include "custom_data_types.h"
 #include "environment_generator.h"
 
-using Walls = std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS>;
-using Pellets = std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS>;
-using Score = u32;
+using walls_t = std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS>;
+using pellets_t = std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS>;
+using score_t = u32;
 
 class DataPool
 {
@@ -20,14 +20,14 @@ public:
     DataPool(const DataPool&) = delete;
     DataPool& operator=(const DataPool&) = delete;
 
-    void setWalls(const Walls& inputWalls);
-    const Walls& getWalls() const;
+    void setWalls(const walls_t& inputWalls);
+    const walls_t& getWalls() const;
 
-    void setPellets(const Pellets& inputPellets);
-    const Pellets& getPellets() const;
+    void setPellets(const pellets_t& inputPellets);
+    const pellets_t& getPellets() const;
 
-    void setScore(Score score);
-    Score getScore() const;
+    void setScore(score_t score);
+    score_t getScore() const;
 
     void setControlInputs(ctrlInput input);
     ctrlInput getControlInputs() const;
@@ -49,10 +49,10 @@ private:
     DataPool();
     ~DataPool();
 
-    Walls walls;
-    Pellets pellets;
+    walls_t walls;
+    pellets_t pellets;
     
     ctrlInput controlInput;
     positionXY pacmanPosition;
-    Score score;
+    score_t score;
 };

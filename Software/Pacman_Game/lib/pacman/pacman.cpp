@@ -106,7 +106,7 @@ void Pacman::eatPellet(positionXY currentPosition)
     ASSERT(dataPool.isPelletAt(currentPosition));
 
     // Get the current score
-    Score currentScore = dataPool.getScore();
+    score_t currentScore = dataPool.getScore();
 
     // Increase the score by 1
     currentScore += 10;
@@ -115,7 +115,7 @@ void Pacman::eatPellet(positionXY currentPosition)
     dataPool.setScore(currentScore);
 
     // Remove the pellet from the DataPool
-    Pellets pellets = dataPool.getPellets();
+    pellets_t pellets = dataPool.getPellets();
     pellets[static_cast<std::size_t>(currentPosition.x)].set(static_cast<std::size_t>(currentPosition.y), false);
     dataPool.setPellets(pellets);
 

@@ -8,6 +8,7 @@ enum class ctrlInput {
     LAST_INPUT
 };
 
+// x -> y
 struct positionXY {
     s8 x;
     s8 y;

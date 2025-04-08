@@ -27,12 +27,12 @@ DataPool::~DataPool() {
 }
 
 // Setter for Walls
-void DataPool::setWalls(const Walls& inputWalls) {   
+void DataPool::setWalls(const walls_t& inputWalls) {   
     walls = inputWalls;
 }
 
 // Getter for Walls
-const Walls& DataPool::getWalls() const {
+const walls_t& DataPool::getWalls() const {
     return walls;
 }
 
@@ -82,22 +82,22 @@ ctrlInput DataPool::getControlInputs() const {
 }
 
 // Setter for Pellets
-void DataPool::setPellets(const Pellets& inputPellets) {
+void DataPool::setPellets(const pellets_t& inputPellets) {
     pellets = inputPellets; 
 }
 
 // Getter for Pellets
-const Pellets& DataPool::getPellets() const {
+const pellets_t& DataPool::getPellets() const {
     return pellets; 
 }
 
 // Setter for Score
-void DataPool::setScore(Score inputScore) {
+void DataPool::setScore(score_t inputScore) {
     score = inputScore; // Assign the input score to the member variable
 }
 
 // Getter for Score
-Score DataPool::getScore() const {
+score_t DataPool::getScore() const {
     return score; // Return the current score
 }
 
