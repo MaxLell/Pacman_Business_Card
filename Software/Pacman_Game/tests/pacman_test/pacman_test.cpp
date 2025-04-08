@@ -166,4 +166,7 @@ TEST(pacman_tests, pacman_can_find_all_the_pellets_in_the_maze)
         }
     }
     CHECK_FALSE(isPelletLeft);
+
+    score_t score =  dataPool.getScore();
+    CHECK(score == 2560);
 }

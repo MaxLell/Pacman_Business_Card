@@ -26,11 +26,6 @@ void Pacman::update()
     // update pacman's position
     dataPool.setPacmanPosition(updatedPosition);
 
-    /*
-    if (isPelletAt(updatedPosition)) {
-        eatPellet();
-    }
-    */
     if (dataPool.isPelletAt(updatedPosition))
     {
         eatPellet(updatedPosition);
