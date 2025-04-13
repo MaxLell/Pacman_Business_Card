@@ -6,6 +6,7 @@ set(PACMAN_GAME_LOGIC_LIB_INC_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/data_pool
     ${CMAKE_CURRENT_SOURCE_DIR}/message_broker
     ${CMAKE_CURRENT_SOURCE_DIR}/environment_generator
+    ${CMAKE_CURRENT_SOURCE_DIR}/a_star
 )
 
 set(PACMAN_GAME_LOGIC_LIB_SRC_FILES 
@@ -14,6 +15,7 @@ set(PACMAN_GAME_LOGIC_LIB_SRC_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/ghosts/ghosts.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/data_pool/data_pool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/environment_generator/environment_generator.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/a_star/AStar.cpp   
 )
 
 add_library(${PACMAN_GAME_LOGIC_LIB} STATIC ${PACMAN_GAME_LOGIC_LIB_SRC_FILES})
