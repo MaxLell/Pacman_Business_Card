@@ -118,6 +118,10 @@ void DataPool::runIntegrityChecks() const {
 
     // Pacman's position must not be the same as a Ghost
 
+    // The ghosts must not be out of bounds
+
+    // The ghosts must not be on a wall
+
     // Control input must be valid
     ASSERT(controlInput < ctrlInput::LAST_INPUT);
 }

@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
 
-#define NOF_ROWS 31
-#define NOF_COLUMNS 28
+
+#define NOF_COLUMNS 28 // X
+#define NOF_ROWS 31 // Y
 
 static const std::string environmentMaze[NOF_ROWS] = {
     "############################",

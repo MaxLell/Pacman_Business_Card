@@ -24,7 +24,7 @@ TEST_GROUP(a_star_tests){
 };
 // clang-format on
 
-TEST(a_star_tests, test_a_star)
+TEST(a_star_tests, test_a_star_with_path)
 {
     constexpr int WORLD_SIZE_X = 20;
     constexpr int WORLD_SIZE_Y = 20;
@@ -53,5 +53,44 @@ TEST(a_star_tests, test_a_star)
     CHECK_EQUAL(path.back().y, TARGET_POSITION.y);
 }
 
+TEST(a_star_tests, test_a_start_with_maze) {
+    std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> walls;
+    EnvironmentGenerator envGen;
+    envGen.loadMazeElementFromStringArray(MazeElementType::Walls, walls);
 
+    const AStar::Vec2i START_POSITION = {1, 1};
+    const AStar::Vec2i TARGET_POSITION = {26, 29};  
+
+    AStar::Generator a_star;
+    a_star.setWorldSize({NOF_COLUMNS, NOF_ROWS}); // Set world size
+    a_star.setHeuristic(AStar::Heuristic::euclidean);
+
+    // Create a wall where the maze is
+    for (int row = 0; row < NOF_ROWS; ++row) {
+        for (int column = 0; column < NOF_COLUMNS; ++column) {
+            if (walls[row][column]) {
+                a_star.addCollision({column, row}); // Wall at (x, y)
+            }
+        }
+    }
+    auto path = a_star.findPath(START_POSITION, TARGET_POSITION); // Path from START_POSITION to TARGET_POSITION
+
+    // Print the maze with the path
+    for (int row = 0; row < NOF_ROWS; ++row) {
+        for (int column = 0; column < NOF_COLUMNS; ++column) {
+            if (walls[row][column]) {
+                std::cout << "#"; // Wall
+            } else if (std::find(path.begin(), path.end(), AStar::Vec2i{column, row}) != path.end()) {
+                std::cout << "."; // Path
+            } else {
+                std::cout << " "; // Empty space
+            }
+        }
+        std::cout << std::endl;
+    }
+
+    // Make sure that the last coordinate is the target
+    CHECK_EQUAL(path.back().x, TARGET_POSITION.x);
+    CHECK_EQUAL(path.back().y, TARGET_POSITION.y);
+}
 
