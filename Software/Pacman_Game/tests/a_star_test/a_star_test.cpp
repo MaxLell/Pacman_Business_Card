@@ -75,19 +75,19 @@ TEST(a_star_tests, test_a_start_with_maze) {
     }
     auto path = a_star.findPath(START_POSITION, TARGET_POSITION); // Path from START_POSITION to TARGET_POSITION
 
-    // Print the maze with the path
-    for (int row = 0; row < NOF_ROWS; ++row) {
-        for (int column = 0; column < NOF_COLUMNS; ++column) {
-            if (walls[row][column]) {
-                std::cout << "#"; // Wall
-            } else if (std::find(path.begin(), path.end(), AStar::Vec2i{column, row}) != path.end()) {
-                std::cout << "."; // Path
-            } else {
-                std::cout << " "; // Empty space
-            }
-        }
-        std::cout << std::endl;
-    }
+    // // Print the maze with the path
+    // for (int row = 0; row < NOF_ROWS; ++row) {
+    //     for (int column = 0; column < NOF_COLUMNS; ++column) {
+    //         if (walls[row][column]) {
+    //             std::cout << "#"; // Wall
+    //         } else if (std::find(path.begin(), path.end(), AStar::Vec2i{column, row}) != path.end()) {
+    //             std::cout << "."; // Path
+    //         } else {
+    //             std::cout << " "; // Empty space
+    //         }
+    //     }
+    //     std::cout << std::endl;
+    // }
 
     // Make sure that the last coordinate is the target
     CHECK_EQUAL(path.back().x, TARGET_POSITION.x);

@@ -2,6 +2,7 @@
 #include <bitset>
 #include <array>
 #include "environment_maze.h"
+#include "AStar.hpp"
 
 enum class MazeElementType
 {
@@ -18,5 +19,7 @@ public:
     ~EnvironmentGenerator();
 
     void loadMazeElementFromStringArray(MazeElementType type, std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS> &inoutElement);
-    // generateSuperPellet
+
+    void loadMazeIntoPathFinding(AStar::Generator& inout_aStarAlgorithm);
+    
 };

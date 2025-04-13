@@ -36,3 +36,18 @@ TEST(EnvironmentGen_tests, pellets_can_be_generated_without_asserts_being_trigge
     envGen.loadMazeElementFromStringArray(MazeElementType::Pellets, pellets);
 }
 
+TEST(EnvironmentGen_tests, env_gen_can_setup_aStar) {
+    EnvironmentGenerator envGen;
+    AStar::Generator a_star;
+    envGen.loadMazeIntoPathFinding(a_star);
+
+    const AStar::Vec2i START_POSITION = {1, 1};
+    const AStar::Vec2i TARGET_POSITION = {26, 29};
+
+    auto path = a_star.findPath(START_POSITION, TARGET_POSITION);
+
+    // Make sure that the last coordinate is the target
+    CHECK_EQUAL(path.back().x, TARGET_POSITION.x);
+    CHECK_EQUAL(path.back().y, TARGET_POSITION.y);
+}
+

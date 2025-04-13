@@ -5,6 +5,7 @@
 #include "custom_assert.h"
 #include "custom_data_types.h"
 #include "environment_generator.h"
+#include "AStar.hpp"
 
 using walls_t = std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS>;
 using pellets_t = std::array<std::bitset<NOF_COLUMNS>, NOF_ROWS>;
@@ -35,6 +36,11 @@ public:
     void setPacmanPosition(positionXY_t pos);
     positionXY_t getPacmanPosition() const;
 
+    void setPacmanDirection(pacmanDirection direction);
+    pacmanDirection getPacmanDirection() const;
+
+    void 
+
     // Check if a wall exists at a specific position
     bool isWallAt(positionXY_t pos) const;
     bool isPelletAt(positionXY_t pos) const;
@@ -53,6 +59,7 @@ private:
     pellets_t pellets;
     
     ctrlInput controlInput;
-    positionXY_t pacmanPosition;
+    positionXY_t pmPosition;
+    pacmanDirection pmDirection;
     score_t score;
 };

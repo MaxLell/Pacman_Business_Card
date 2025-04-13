@@ -14,8 +14,8 @@ DataPool::DataPool() {
     }
 
     // Initialize pacman position to (0, 0)
-    pacmanPosition.x = 0;
-    pacmanPosition.y = 0;
+    pmPosition.x = 0;
+    pmPosition.y = 0;
 
     // Set the score
     setScore(100);
@@ -60,18 +60,18 @@ void DataPool::setPacmanPosition(positionXY_t pos) {
     ASSERT(pos.x < NOF_ROWS);
     ASSERT(pos.y < NOF_COLUMNS);
 
-    pacmanPosition.x = pos.x; 
-    pacmanPosition.y = pos.y; 
+    pmPosition.x = pos.x; 
+    pmPosition.y = pos.y; 
 }
 
 // Getter für Pacman-Position
 positionXY_t DataPool::getPacmanPosition() const {
-    return pacmanPosition; 
+    return pmPosition; 
 }
 
 // Setter for Control Inputs
 void DataPool::setControlInputs(ctrlInput input) {
-    bool validInput = input < ctrlInput::LAST_INPUT;
+    bool validInput = input < ctrlInput::LAST_ENTRY;
     ASSERT(validInput); 
     controlInput = input;
 }
@@ -101,18 +101,28 @@ score_t DataPool::getScore() const {
     return score; // Return the current score
 }
 
+// Set the direction of Pacman
+void DataPool::setPacmanDirection(pacmanDirection direction) {
+    pmDirection = direction;
+}
+
+// Get the current direction of Pacman
+pacmanDirection DataPool::getPacmanDirection() const {
+    return pmDirection;
+}
+
 void DataPool::runIntegrityChecks() const {
     // Pacman's position must not be out of bounds
-    ASSERT(pacmanPosition.x >= 0);
-    ASSERT(pacmanPosition.y >= 0);
-    ASSERT(pacmanPosition.x < NOF_ROWS);
-    ASSERT(pacmanPosition.y < NOF_COLUMNS);
+    ASSERT(pmPosition.x >= 0);
+    ASSERT(pmPosition.y >= 0);
+    ASSERT(pmPosition.x < NOF_ROWS);
+    ASSERT(pmPosition.y < NOF_COLUMNS);
 
     // Pacman's position must not be the same as a wall
-    ASSERT(false == isWallAt(pacmanPosition)); 
+    ASSERT(false == isWallAt(pmPosition)); 
 
     // Pacman's position must not the same as a pellet
-    ASSERT(false == isPelletAt(pacmanPosition));
+    ASSERT(false == isPelletAt(pmPosition));
 
     // Pacman's position must not be the same as a superpellet
 
@@ -123,5 +133,5 @@ void DataPool::runIntegrityChecks() const {
     // The ghosts must not be on a wall
 
     // Control input must be valid
-    ASSERT(controlInput < ctrlInput::LAST_INPUT);
+    ASSERT(controlInput < ctrlInput::LAST_ENTRY);
 }

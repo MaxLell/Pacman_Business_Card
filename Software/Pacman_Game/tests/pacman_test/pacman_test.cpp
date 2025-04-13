@@ -89,7 +89,7 @@ TEST(pacman_tests, moving_pacman_through_the_maze_does_not_trigger_assert)
     const int nofIterations = 100000;
     for (int i = 0; i < nofIterations; ++i)
     {
-        ctrlInput controlInput = static_cast<ctrlInput>(rand() % static_cast<int>(ctrlInput::LAST_INPUT));
+        ctrlInput controlInput = static_cast<ctrlInput>(rand() % static_cast<int>(ctrlInput::LAST_ENTRY));
         dataPool.setControlInputs(controlInput);
 
         Pacman pacman(dataPool);
@@ -145,7 +145,7 @@ TEST(pacman_tests, pacman_can_find_all_the_pellets_in_the_maze)
     const int nofIterations = 100000;
     for (int i = 0; i < nofIterations; ++i)
     {
-        ctrlInput controlInput = static_cast<ctrlInput>(rand() % static_cast<int>(ctrlInput::LAST_INPUT));
+        ctrlInput controlInput = static_cast<ctrlInput>(rand() % static_cast<int>(ctrlInput::LAST_ENTRY));
         dataPool.setControlInputs(controlInput);
 
         Pacman pacman(dataPool);
@@ -169,4 +169,13 @@ TEST(pacman_tests, pacman_can_find_all_the_pellets_in_the_maze)
 
     score_t score =  dataPool.getScore();
     CHECK(score == 2560);
+}
+
+TEST(pacman_tests, pacman_sets_direction)
+{
+    DataPool &dataPool = DataPool::getInstance();
+    positionXY_t pacmanPosition = {1, 1}; // Position where there is also a power pellet
+    dataPool.setPacmanPosition(pacmanPosition);
+    dataPool.setControlInputs(ctrlInput::Right);
+    dataPool.setPacmanDirection(pacmanDirection::Right);
 }
